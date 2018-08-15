@@ -18,6 +18,28 @@ rustup component add rls-preview rust-analysis rust-src
 source $HOME/.cargo/env
 ```
 
+-   Install nvm
+
+```bash
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | zsh
+```
+
+-   Close and reopen your terminal to start using
+
+-   Install nodejs
+
+```bash
+nvm install node
+```
+
+-   Build
+
+```bash
+git clone https://github.com/saturn-xiv/lotus.git
+cd lotus
+make # dist.tar.xz
+```
+
 ## Atom plugins
 
 -   autosave: enable
