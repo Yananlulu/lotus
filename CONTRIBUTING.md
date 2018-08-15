@@ -48,9 +48,12 @@ The scope should refer to a module in lotus that is being touched. Examples:
 
 -   nut
 -   forum
--   advert
+-   flea
 -   survey
 -   cbeta
+-   caring
+-   motel
+-   library
 -   ops-mail
 -   ops-vpn
 
