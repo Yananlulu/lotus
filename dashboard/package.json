@@ -2,6 +2,10 @@
   "name": "lotus",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "umi dev",
+    "build": "BASE_URL=/my/ umi build"
+  },
   "devDependencies": {
     "umi": "^1.3.18",
     "umi-plugin-dva": "^0.9.1"
