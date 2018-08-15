@@ -46,6 +46,7 @@ Must be one of the following:
 
 The scope should refer to a module in lotus that is being touched. Examples:
 
+-   nut
 -   forum
 -   advert
 -   survey
