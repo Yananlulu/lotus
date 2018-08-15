@@ -1,6 +1,6 @@
-# lotus
+# LOTUS
 
-A complete open source e-commerce solution built with Rust and React(STILL IN DEVELOPMENT).
+A complete open source Office-Automation solution.
 
 ## Usage
 
@@ -38,6 +38,21 @@ nvm install node
 git clone https://github.com/saturn-xiv/lotus.git
 cd lotus
 make # dist.tar.xz
+```
+
+-   create database
+
+```bash
+CREATE USER who-am-i WITH PASSWORD 'change-me';
+CREATE DATABASE db-name WITH ENCODING='UTF8';
+GRANT ALL PRIVILEGES ON DATABASE db-name TO who-am-i;
+```
+
+-   database setup
+
+```bash
+cargo install diesel_cli --force
+diesel database setup
 ```
 
 ## Atom plugins
