@@ -35,24 +35,18 @@ nvm install node
 -   Build
 
 ```bash
+cargo install diesel_cli --force
 git clone https://github.com/saturn-xiv/lotus.git
 cd lotus
 make # dist.tar.xz
 ```
 
--   create database
+-   create database(postgresql)
 
 ```bash
 CREATE USER who-am-i WITH PASSWORD 'change-me';
 CREATE DATABASE db-name WITH ENCODING='UTF8';
 GRANT ALL PRIVILEGES ON DATABASE db-name TO who-am-i;
-```
-
--   database setup
-
-```bash
-cargo install diesel_cli --force
-diesel database setup
 ```
 
 ## Atom plugins

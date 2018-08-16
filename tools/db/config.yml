@@ -1,0 +1,13 @@
+production:
+  database: lotus
+  pool:     5
+  host:     localhost
+
+  adapter:  postgresql
+  username: postgres
+  encoding: unicode
+
+  # adapter: mysql2
+  # encoding: utf8
+  # username: root
+  # password: test

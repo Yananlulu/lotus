@@ -14,8 +14,8 @@ www:
 	-cp -r dashboard/dist $(dist)/dashboard
 
 schema:
-	MIGRATION_DIRECTORY="db/migrations/postgresql" DATABASE_URL="postgres://postgres:@localhost:5432/lotus" diesel print-schema > src/orm/postgresql/schema.rs
-	MIGRATION_DIRECTORY="db/migrations/postgresql" DATABASE_URL="mysql://root:test@localhost:3306/lotus" diesel print-schema > src/orm/mysql/schema.rs
+	DATABASE_URL="postgres://postgres:@localhost:5432/lotus" diesel print-schema > src/orm/postgresql/schema.rs
+	DATABASE_URL="mysql://root:test@localhost:3306/lotus" diesel print-schema > src/orm/mysql/schema.rs
 
 clean:
 	cargo clean
