@@ -8,8 +8,6 @@ pub mod postgresql;
 #[cfg(feature = "postgresql")]
 pub use self::postgresql::{schema, Config, Connection, DRIVER};
 
-use std::ops::Deref;
-
 use diesel::r2d2::ConnectionManager;
 use r2d2;
 

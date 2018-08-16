@@ -8,6 +8,7 @@ A complete open source Office-Automation solution.
 
 ```bash
 curl https://sh.rustup.rs -sSf | sh
+rustup default nightly
 rustup component add rustfmt-preview
 rustup component add rls-preview rust-analysis rust-src
 ```

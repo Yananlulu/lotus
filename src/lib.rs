@@ -2,20 +2,20 @@
 
 #[macro_use]
 extern crate error_chain;
-#[macro_use(log)]
-pub extern crate log;
+// #[macro_use]
+// pub extern crate log;
 #[macro_use]
 extern crate serde_derive;
 #[macro_use]
 extern crate serde_json;
 #[macro_use]
 extern crate diesel;
-#[macro_use]
-extern crate validator_derive;
-#[macro_use]
-extern crate juniper;
-#[macro_use]
-extern crate lazy_static;
+// #[macro_use]
+// extern crate validator_derive;
+// #[macro_use]
+// extern crate juniper;
+// #[macro_use]
+// extern crate lazy_static;
 
 extern crate amqp;
 extern crate base64;
@@ -75,11 +75,11 @@ pub mod errors;
 // pub mod jwt;
 // pub mod oauth;
 pub mod orm;
-// pub mod plugins;
+pub mod plugins;
 // pub mod queue;
 // pub mod request;
 // pub mod rfc;
-// pub mod router;
+pub mod router;
 // pub mod settings;
 // pub mod storage;
 // pub mod sys;
