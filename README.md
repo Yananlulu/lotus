@@ -17,6 +17,7 @@ rustup component add rls-preview rust-analysis rust-src
 
 ```bash
 source $HOME/.cargo/env
+export RUSTFLAGS="-Aproc-macro-derive-resolution-fallback" # https://github.com/rust-lang/rust/issues/50504#issuecomment-410550021
 ```
 
 -   Install nvm
