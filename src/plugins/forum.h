@@ -1,0 +1,4 @@
+#ifndef LOTUS_PLUGINS_FORUM_H_
+#define LOTUS_PLUGINS_FORUM_H_
+
+#endif
