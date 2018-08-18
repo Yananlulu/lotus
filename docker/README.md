@@ -11,7 +11,5 @@ docker build -t lotus .
 -   Start
 
 ```bash
-docker run --rm -it -p 28080:8080 -p 25432:5432 -p 26379:6379 -p 25672:15672 lotus:latest
+docker run --rm -it -p 2222:22 -p 8080:8080 -p 3000:3000 -v ..:/app lotus:latest
 ```
-
-

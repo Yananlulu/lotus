@@ -8,14 +8,14 @@ RUN wget http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
 RUN apt-key add rabbitmq-signing-key-public.asc
 RUN echo "deb https://dl.bintray.com/rabbitmq/debian/ bionic main" > /etc/apt/sources.list.d/rabbitmq.list
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6B73A36E6026DFCA
-RUN apt-get update \ 
+RUN apt-get update \
   && apt-get upgrade \
   && apt-get -y install curl build-essential git pkg-config zsh vim net-tools \
   && apt-get -y install libsodium-dev libpq-dev \
   && apt-get install -y libssl-dev libreadline-dev zlib1g-dev \
   && apt-get -y install postgresql redis rabbitmq-server openssh-server \
   && apt-get -y autoremove \
-  && apt-get clean 
+  && apt-get clean
 
 # rabbitmq
 RUN /usr/sbin/rabbitmq-plugins enable rabbitmq_management
@@ -46,9 +46,9 @@ RUN echo "host    all             all             127.0.0.1/32            trust"
 RUN echo "bind 127.0.0.1" >> /etc/redis/redis.conf
 RUN chown rabbitmq:rabbitmq /var/lib/rabbitmq/.erlang.cookie
 RUN chmod 600 /var/lib/rabbitmq/.erlang.cookie
-
-
-# clean
+RUN echo 'root:toor' | chpasswd
+RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN sed -i 's/#PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/sshd_config
 
 EXPOSE 3000/tcp 8080/tcp 22/tcp 5432/tcp 6379/tcp 5672/tcp 15672/tcp
 
@@ -57,5 +57,4 @@ VOLUME /app
 ENTRYPOINT service postgresql start \
   && service redis-server start \
   && service rabbitmq-server start \
-  && service ssh start
-
+  && /usr/sbin/sshd -D
