@@ -5,3 +5,6 @@
 /target/
 /dist/
 /dist.tar.xz
+
+# editor
+*.swp
