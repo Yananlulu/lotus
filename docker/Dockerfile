@@ -46,9 +46,11 @@ RUN echo "host    all             all             127.0.0.1/32            trust"
 RUN echo "bind 127.0.0.1" >> /etc/redis/redis.conf
 RUN chown rabbitmq:rabbitmq /var/lib/rabbitmq/.erlang.cookie
 RUN chmod 600 /var/lib/rabbitmq/.erlang.cookie
+RUN mkdir /var/run/sshd
 RUN echo 'root:toor' | chpasswd
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN sed -i 's/#PermitEmptyPasswords no/PermitEmptyPasswords yes/' /etc/ssh/sshd_config
+RUN chsh -s /bin/zsh
 
 EXPOSE 3000/tcp 8080/tcp 22/tcp 5432/tcp 6379/tcp 5672/tcp 15672/tcp
 
