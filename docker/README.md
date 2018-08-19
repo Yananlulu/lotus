@@ -1,8 +1,6 @@
 ## Usage
 
-### Install [docker](https://docs.docker.com/install/)
-
-### Docker
+### docker
 
 ```bash
 docker build -t lotus .

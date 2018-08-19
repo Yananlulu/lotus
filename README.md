@@ -4,38 +4,7 @@ A complete open source Office-Automation solution.
 
 ## Usage
 
--   Install [docker](https://docs.docker.com/install/)
-
-
--   Install rust and nvm
-
-```bash
-curl https://sh.rustup.rs -sSf | sh
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | zsh
-```
-
--   Add to ~/.zshrc
-
-```bash
-source $HOME/.cargo/env
-export RUSTFLAGS="-Aproc-macro-derive-resolution-fallback" # https://github.com/rust-lang/rust/issues/50504#issuecomment-410550021
-```
-
--   Close and reopen your terminal to start using
-
--   Install rust
-
-```bash
-rustup default nightly
-rustup component add rustfmt-preview
-rustup component add rls-preview rust-analysis rust-src
-```
-
--   Install nodejs
-
-```bash
-nvm install node
-```
+-   Need install [rust](docs/RUST.md), [ruby](docs/RUBY.md), [nodejs](docs/NODEJS.md) at first
 
 -   Build
 
@@ -46,69 +15,12 @@ cd lotus
 make # dist.tar.xz
 ```
 
--   create database(postgresql)
-
-```bash
-CREATE USER who-am-i WITH PASSWORD 'change-me';
-CREATE DATABASE db-name WITH ENCODING='UTF8';
-GRANT ALL PRIVILEGES ON DATABASE db-name TO who-am-i;
-```
-
-## Atom plugins
-
--   autosave: enable
--   file-icons
--   atom-beautify: enable beautify on save
--   ide-rust: disable toolchain update checking
--   language-babel
-
 ## Notes
 
 -   Generate a random key
 
 ```bash
 openssl rand -base64 32
-```
-
--   ~/.npmrc
-
-```bash
-npm config set prefix '~/.npm-global'
-```
-
--   'Peer authentication failed for user', open file "/etc/postgresql/9.5/main/pg_hba.conf" change line:
-
-```bash
-local   all             all                                     peer
-TO:
-local   all             all                                     md5
-```
-
--   forgot mysql root password
-
-create file  /tmp/reset.mysqld
-
-```sql
-SET PASSWORD FOR root@localhost = PASSWORD('change-me');
-```
-
-edit file /etc/mysql/my.cnf
-
-```text
-[mysqld]
-init-file=/tmp/reset.mysqld
-```
-
--   RabbitMQ
-
-```bash
-rabbitmq-plugins enable rabbitmq_management
-rabbitmqctl change_password guest change-me
-rabbitmqctl add_user who-am-i change-me
-rabbitmqctl set_user_tags who-am-i administrator
-rabbitmqctl list_vhosts
-rabbitmqctl add_vhost v-host
-rabbitmqctl set_permissions -p v-host who-am-i ".*" ".*" ".*"
 ```
 
 ## Documents
