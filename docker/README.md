@@ -1,15 +1,27 @@
 ## Usage
 
--   Install [docker](https://docs.docker.com/install/)
+### Install [docker](https://docs.docker.com/install/)
 
--   Build
+### Docker
 
 ```bash
 docker build -t lotus .
+# test
+docker run --rm -it -p 2222:22 -p 8080:8080 -p 3000:3000 -v "$(dirname "$(pwd)")":/app lotus:latest
+# start(first time)
+docker run --name lotus -d -p 2222:22 -p 8080:8080 -p 3000:3000 -v "$(dirname "$(pwd)")":/app lotus:latest
+# stop
+docker stop lotus
+# start
+docker start lotus
+# remove
+docker rm lotus
 ```
 
--   Start
+-   ssh
 
 ```bash
-docker run --rm -it -p 2222:22 -p 8080:8080 -p 3000:3000 -v ..:/app lotus:latest
+cd /app
+cargo run
+cd dashboard
 ```

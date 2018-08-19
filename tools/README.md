@@ -26,4 +26,5 @@ git clone https://github.com/rbenv/rbenv-vars.git $(rbenv root)/plugins/rbenv-va
 rbenv install 2.5.1
 gem install bundler
 gem install rubocop
+bundle install
 ```

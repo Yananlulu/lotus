@@ -4,13 +4,14 @@ A complete open source Office-Automation solution.
 
 ## Usage
 
--   Install rust
+-   Install [docker](https://docs.docker.com/install/)
+
+
+-   Install rust and nvm
 
 ```bash
 curl https://sh.rustup.rs -sSf | sh
-rustup default nightly
-rustup component add rustfmt-preview
-rustup component add rls-preview rust-analysis rust-src
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | zsh
 ```
 
 -   Add to ~/.zshrc
@@ -20,13 +21,15 @@ source $HOME/.cargo/env
 export RUSTFLAGS="-Aproc-macro-derive-resolution-fallback" # https://github.com/rust-lang/rust/issues/50504#issuecomment-410550021
 ```
 
--   Install nvm
+-   Close and reopen your terminal to start using
+
+-   Install rust
 
 ```bash
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | zsh
+rustup default nightly
+rustup component add rustfmt-preview
+rustup component add rls-preview rust-analysis rust-src
 ```
-
--   Close and reopen your terminal to start using
 
 -   Install nodejs
 
@@ -37,8 +40,8 @@ nvm install node
 -   Build
 
 ```bash
-cargo install diesel_cli --force
 git clone https://github.com/saturn-xiv/lotus.git
+cd dashboard && npm install --no-save && cd -
 cd lotus
 make # dist.tar.xz
 ```
