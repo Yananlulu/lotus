@@ -4,7 +4,7 @@ A complete open source Office-Automation solution.
 
 ## Usage
 
--   Need install [rust](docs/RUST.md), [ruby](docs/RUBY.md), [nodejs](docs/NODEJS.md) at first
+-   Need install [rust](doc/RUST.md), [ruby](doc/RUBY.md), [nodejs](doc/NODEJS.md) at first
 
 -   Build
 

@@ -1,12 +1,8 @@
 ## ANDROID
 
-### Java
+-   [Andorid SDK](https://wiki.archlinux.org/index.php/android)
+-   [Configuring VM acceleration on Linux](https://developer.android.com/studio/run/emulator-acceleration?utm_source=android-studio#vm-linux)
 
 ```bash
-curl -s "https://get.sdkman.io" | zsh
-sdk install java
-sdk install maven
-sdk install gradle
+egrep -c '(vmx|svm)' /proc/cpuinfo
 ```
-
-### [Andorid](https://wiki.archlinux.org/index.php/android)
