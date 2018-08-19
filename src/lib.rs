@@ -1,23 +1,24 @@
+#![feature(plugin, use_extern_macros, custom_derive, extern_prelude)]
+#![plugin(rocket_codegen)]
 #![recursion_limit = "1024"]
 
 #[macro_use]
 extern crate error_chain;
-// #[macro_use]
-// pub extern crate log;
+#[macro_use]
+pub extern crate log;
 #[macro_use]
 extern crate serde_derive;
 #[macro_use]
 extern crate serde_json;
 #[macro_use]
 extern crate diesel;
-// #[macro_use]
-// extern crate validator_derive;
-// #[macro_use]
-// extern crate juniper;
-// #[macro_use]
-// extern crate lazy_static;
+#[macro_use]
+extern crate validator_derive;
+#[macro_use]
+extern crate juniper;
+#[macro_use]
+extern crate lazy_static;
 
-extern crate amqp;
 extern crate base64;
 extern crate byteorder;
 extern crate chrono;
@@ -45,6 +46,8 @@ extern crate r2d2_redis;
 extern crate redis;
 extern crate regex;
 extern crate robots_txt;
+extern crate rocket;
+extern crate rocket_contrib;
 extern crate rss;
 extern crate rusoto_core;
 extern crate rusoto_elasticache;
@@ -65,25 +68,23 @@ extern crate validator;
 #[macro_use]
 pub mod macros;
 
-// pub mod app;
-// pub mod cache;
-// pub mod context;
-// pub mod env;
+pub mod app;
+pub mod cache;
+pub mod env;
 pub mod errors;
-// pub mod graphql;
-// pub mod i18n;
-// pub mod jwt;
-// pub mod oauth;
+pub mod i18n;
+pub mod jwt;
+pub mod oauth;
 pub mod orm;
 pub mod plugins;
-// pub mod queue;
-// pub mod request;
-// pub mod rfc;
+pub mod queue;
+pub mod request;
+pub mod rfc;
 pub mod router;
-// pub mod settings;
-// pub mod storage;
-// pub mod sys;
-// pub mod utils;
+pub mod settings;
+pub mod storage;
+pub mod sys;
+pub mod utils;
 
 use chrono::NaiveDateTime;
 use sitemap::structs::ChangeFreq;

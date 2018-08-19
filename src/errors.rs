@@ -11,7 +11,6 @@ error_chain!{
         ChronoParse(::chrono::ParseError);
         Diesel(::diesel::result::Error);
         Base64Decode(::base64::DecodeError);
-        Amqp(::amqp::AMQPError);
         Ini(::ini::ini::Error);
         LanguageTags(::language_tags::Error);
         LettreEmail(::lettre_email::error::Error);
@@ -26,5 +25,7 @@ error_chain!{
         Hyper(::hyper::Error);
         Rss(::rss::Error);
         SerdeYaml(::serde_yaml::Error);
+        RocketConfig(::rocket::config::ConfigError);
+        RocketLaunch(::rocket::error::LaunchError);
     }
 }

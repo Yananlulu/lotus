@@ -20,7 +20,7 @@ pub struct Config {
 
 impl Config {
     /*
-    use arche
+    use lotus
     desc xxx
     */
     pub fn open(&self) -> Result<Pool<ConnectionManager<MysqlConnection>>> {

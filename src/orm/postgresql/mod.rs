@@ -12,7 +12,7 @@ pub const DRIVER: &'static str = "postgresql";
 // sudo gpasswd -a YOUR-NAME wheel
 // journalctl -f -u postgresql
 // show database size: /l+
-// \c arche
+// \c lotus
 // \d xxx
 pub type Connection = PgConnection;
 
