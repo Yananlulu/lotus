@@ -9,6 +9,7 @@ A complete open source Office-Automation solution.
 -   Build
 
 ```bash
+cargo install diesel_cli --force
 git clone https://github.com/saturn-xiv/lotus.git
 cd dashboard && npm install --no-save && cd -
 cd lotus
