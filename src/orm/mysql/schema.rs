@@ -168,6 +168,7 @@ table! {
 table! {
     schema_migrations (version) {
         version -> Varchar,
+        created_at -> Datetime,
     }
 }
 
