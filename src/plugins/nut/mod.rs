@@ -1,20 +1,13 @@
 pub mod controllers;
 
 use chrono::Utc;
-use rocket::Route;
 use sitemap::structs::ChangeFreq;
 
 use super::super::{RssItem, SitemapItem};
 
-pub const NAME: &'static str = "forum";
-
-pub fn routes() -> Vec<(&'static str, Vec<Route>)> {
-    vec![("/forum", routes![controllers::index])]
-}
-
 pub fn sitemap() -> Vec<SitemapItem> {
     vec![(
-        "/forum".to_string(),
+        "/".to_string(),
         0.1,
         ChangeFreq::Daily,
         Utc::now().naive_utc(),

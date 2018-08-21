@@ -1,27 +1,24 @@
 use std::collections::BTreeMap;
 use std::fs::File;
-use std::ops::Deref;
 use std::path::PathBuf;
 use std::{ffi, fs};
 
 use chrono::Utc;
 use diesel::{insert_into, prelude::*, Connection};
 use ini::Ini;
-use log;
 use serde_yaml;
 
 use super::super::{
-    context::Context,
     errors::{Error, Result},
     orm::{schema::locales, Connection as Db},
 };
 
 pub fn sync(root: PathBuf) -> Result<()> {
-    let ctx = Context::new(&super::parse_config()?)?;
-    let db = ctx.db.get()?;
-    let db = db.deref();
-    let (total, inserted) = db.transaction::<_, Error, _>(|| load(db, &root))?;
-    log::info!("total {}, insert {}", total, inserted);
+    let cfg = super::parse_config()?;
+    let db = cfg.database.open()?;
+    let db = db.get()?;
+    let (total, inserted) = db.transaction::<_, Error, _>(|| load(&db, &root))?;
+    info!("total {}, insert {}", total, inserted);
     Ok(())
 }
 
@@ -58,7 +55,7 @@ fn parse_locale(file: &PathBuf, ext: &'static str) -> Option<String> {
         if let Some(name) = file.file_name() {
             if let Some(name) = name.to_str() {
                 let lang = &name[..name.len() - ext.len() - 1];
-                log::info!("find file {} for locale {}", file.display(), lang);
+                info!("find file {} for locale {}", file.display(), lang);
                 return Some(lang.to_string());
             }
         }
@@ -76,7 +73,7 @@ fn load_from_files(dir: &PathBuf) -> Result<(BTreeMap<String, BTreeMap<String, S
                 } else if let Some(lang) = parse_locale(&it, "yml") {
                     items.insert(lang, load_from_yaml(&it)?);
                 } else {
-                    log::warn!("unknown filetype {}", it.display());
+                    warn!("unknown filetype {}", it.display());
                 }
             }
         }

@@ -1,5 +1,3 @@
-#![feature(plugin, use_extern_macros, custom_derive, extern_prelude)]
-#![plugin(rocket_codegen)]
 #![recursion_limit = "1024"]
 
 #[macro_use]
@@ -29,6 +27,7 @@ extern crate flate2;
 extern crate frank_jwt;
 extern crate futures;
 extern crate geo;
+extern crate gotham;
 extern crate hex;
 extern crate http;
 extern crate hyper;
@@ -46,8 +45,6 @@ extern crate r2d2_redis;
 extern crate redis;
 extern crate regex;
 extern crate robots_txt;
-extern crate rocket;
-extern crate rocket_contrib;
 extern crate rss;
 extern crate rusoto_core;
 extern crate rusoto_elasticache;

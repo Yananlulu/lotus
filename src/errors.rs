@@ -25,7 +25,5 @@ error_chain!{
         Hyper(::hyper::Error);
         Rss(::rss::Error);
         SerdeYaml(::serde_yaml::Error);
-        RocketConfig(::rocket::config::ConfigError);
-        RocketLaunch(::rocket::error::LaunchError);
     }
 }

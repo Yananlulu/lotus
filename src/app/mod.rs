@@ -15,7 +15,7 @@ use clap;
 use sodiumoxide;
 use toml;
 
-use super::{context::Context, env, errors::Result};
+use super::{env, errors::Result};
 
 pub fn main() -> Result<()> {
     sodiumoxide::init();
@@ -93,7 +93,7 @@ pub fn main() -> Result<()> {
     //     Err(e) => error!("failed in worker: {:?}", e),
     // });
 
-    http::server(Arc::clone(cfg))
+    http::server(Arc::clone(&cfg))
 }
 
 fn config_file() -> PathBuf {
