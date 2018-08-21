@@ -14,7 +14,7 @@
     "@types/googlemaps": "^3.30.11",
     "@types/markerclustererplus": "^2.1.33",
     "ant-design-pro": "^1.4.4",
-    "antd": "^3.8.1",
+    "antd": "^3.8.2",
     "graphql-request": "^1.8.2",
     "js-cookie": "^2.2.0",
     "jwt-decode": "^2.2.0",

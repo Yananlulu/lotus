@@ -16,9 +16,7 @@ mysql = ["diesel/mysql"]
 
 [dependencies]
 hyper = "0.11"
-rocket = "0.3"
-rocket_codegen = "0.3"
-rocket_contrib = "0.3"
+gotham = "0.2"
 futures = "0.1"
 clap = "2.32"
 error-chain = "0.12"
