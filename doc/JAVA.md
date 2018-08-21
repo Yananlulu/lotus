@@ -2,6 +2,7 @@
 
 ```bash
 curl -s "https://get.sdkman.io" | zsh
+# please re-loging at first
 sdk install java
 sdk install maven
 sdk install gradle
