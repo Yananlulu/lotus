@@ -8,3 +8,7 @@
 
 # editor
 *.swp
+
+# test
+/tmp/
+/config.toml
