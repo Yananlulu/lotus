@@ -21,6 +21,7 @@ use sitemap::{structs::UrlEntry, writer::SiteMapWriter, Error as SitemapError};
 use super::{
     env::Config,
     errors::{Error, Result},
+    graphql,
     orm::PooledConnection as Db,
     request::Home,
 };
@@ -40,9 +41,9 @@ impl<'r> Responder<'r> for Error {
 
 pub fn routes() -> Vec<(&'static str, Vec<Route>)> {
     let mut items = Vec::new();
-    // items.extend_from_slice(&nut::routes());
-    // items.extend_from_slice(&forum::routes());
-    // items.push(graphql::routes());
+    items.extend_from_slice(&nut::routes());
+    items.extend_from_slice(&forum::routes());
+    items.push(graphql::route());
     items.push((
         "/",
         routes![
