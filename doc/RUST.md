@@ -17,7 +17,7 @@ source $HOME/.cargo/env
 -   Install rust
 
 ```bash
-rustup default stable # or nightly
+rustup default nightly # or nightly
 rustup component add rustfmt-preview
 rustup component add rls-preview rust-analysis rust-src
 ```
