@@ -26,5 +26,7 @@ error_chain!{
         Regex(::regex::Error);
         Hyper(::hyper::Error);
         Rss(::rss::Error);
+        RocketConfig(::rocket::config::ConfigError);
+        RocketLaunch(rocket::error::LaunchError);
     }
 }

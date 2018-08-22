@@ -1,13 +1,4 @@
-use gotham::{http::response::create_response, state::State};
-use hyper::{Response, StatusCode};
-use mime;
-
-pub fn index(state: State) -> (State, Response) {
-    let res = create_response(
-        &state,
-        StatusCode::Ok,
-        Some((String::from("hi, home!").into_bytes(), mime::TEXT_PLAIN)),
-    );
-
-    (state, res)
+#[get("/")]
+pub fn index() -> String {
+    "hi".to_string()
 }

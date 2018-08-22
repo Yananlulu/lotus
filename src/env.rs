@@ -1,6 +1,7 @@
 use std::path::{Path, PathBuf};
 
 use base64;
+use rocket;
 
 use super::{cache, errors::Result, oauth, orm, queue, storage};
 
@@ -49,15 +50,51 @@ impl Config {
         let buf = base64::decode(&self.secret_key)?;
         Ok(buf)
     }
-    pub fn is_production(&self) -> bool {
-        self.env == "production"
+    pub fn env(&self) -> rocket::config::Environment {
+        match self.env.parse::<rocket::config::Environment>() {
+            Ok(v) => v,
+            Err(_) => rocket::config::Environment::Development,
+        }
+    }
+    pub fn rocket(&self) -> Result<rocket::config::Config> {
+        Ok(rocket::config::Config::build(self.env())
+            .address("127.0.0.1")
+            .port(self.http.port)
+            .workers(self.http.workers)
+            .log_level(match self
+                .http
+                .logging_level
+                .parse::<rocket::config::LoggingLevel>()
+            {
+                Ok(v) => v,
+                Err(_) => rocket::config::LoggingLevel::Debug,
+            }).secret_key(self.secret_key.clone())
+            .limits(
+                rocket::config::Limits::new()
+                    .limit("forms", self.http.limits)
+                    .limit("json", self.http.limits),
+            ).extra(
+                "template_dir",
+                match Path::new("themes")
+                    .join(self.http.theme.clone())
+                    .join("views")
+                    .to_str()
+                {
+                    Some(v) => v,
+                    None => "views",
+                },
+            ).finalize()?)
     }
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Http {
     pub port: u16,
+    pub workers: u16,
+    //  one of "normal", "debug", or "critical"
+    pub logging_level: String,
     pub theme: String,
+    pub limits: u64,
 }
 
 impl Http {
@@ -67,9 +104,16 @@ impl Http {
     pub fn assets(&self) -> PathBuf {
         self.root().join("assets")
     }
+    pub fn global(&self) -> PathBuf {
+        self.themes().join("global")
+    }
+
+    fn themes(&self) -> PathBuf {
+        Path::new("themes").to_path_buf()
+    }
 
     fn root(&self) -> PathBuf {
-        Path::new("themes").join(&self.theme)
+        self.themes().join(&self.theme)
     }
 }
 

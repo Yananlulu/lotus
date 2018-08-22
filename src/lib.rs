@@ -18,8 +18,6 @@ extern crate validator_derive;
 extern crate juniper;
 #[macro_use]
 extern crate lazy_static;
-#[macro_use]
-extern crate gotham_derive;
 
 extern crate base64;
 extern crate byteorder;
@@ -31,7 +29,6 @@ extern crate flate2;
 extern crate frank_jwt;
 extern crate futures;
 extern crate geo;
-extern crate gotham;
 extern crate hex;
 extern crate http;
 extern crate hyper;
@@ -39,8 +36,6 @@ extern crate ini;
 extern crate language_tags;
 extern crate lettre;
 extern crate lettre_email;
-extern crate rocket;
-// extern crate log4rs;
 extern crate maxminddb;
 extern crate md5;
 extern crate mime;
@@ -50,6 +45,8 @@ extern crate r2d2_redis;
 extern crate redis;
 extern crate regex;
 extern crate robots_txt;
+extern crate rocket;
+extern crate rocket_contrib;
 extern crate rss;
 extern crate rusoto_core;
 extern crate rusoto_elasticache;
@@ -66,6 +63,7 @@ extern crate toml;
 extern crate url;
 extern crate uuid;
 extern crate validator;
+// extern crate log4rs;
 
 #[macro_use]
 pub mod macros;
@@ -81,9 +79,7 @@ pub mod orm;
 pub mod plugins;
 pub mod queue;
 pub mod request;
-pub mod response;
 pub mod rfc;
-pub mod router;
 pub mod settings;
 pub mod storage;
 pub mod sys;

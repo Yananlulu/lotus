@@ -15,8 +15,11 @@ postgresql = ["diesel/postgres"]
 mysql = ["diesel/mysql"]
 
 [dependencies]
+rocket = "0.3.15"
+rocket_codegen = "0.3.15"
 hyper = "0.11"
 gotham = "0.2"
+gotham_derive = "0.2"
 futures = "0.1"
 clap = "2.32"
 error-chain = "0.12"
@@ -36,7 +39,8 @@ r2d2 = "0.8"
 r2d2_redis = "0.7"
 redis = "0.8"
 log = "0.4"
-log4rs = "0.8"
+# https://github.com/sfackler/log4rs/issues/75
+# log4rs = "0.8"
 sha2 = "0.7"
 md-5 = "0.7"
 base64 = "0.9"
@@ -58,6 +62,7 @@ validator = "0.6"
 validator_derive = "0.6"
 language-tags = "0.2"
 juniper = "0.9"
+juniper_rocket = "0.1"
 robots_txt = "0.5"
 sitemap = "0.2"
 rss = "1.5"
@@ -82,3 +87,11 @@ features = ["serde"]
 [dependencies.uuid]
 version = "0.6"
 features = ["v4"]
+
+[dependencies.rocket_contrib]
+version = "*"
+default-features = false
+features = ["json", "uuid", "tera_templates"]
+
+[dependencies.rocket_cors]
+git = "https://github.com/lawliet89/rocket_cors"

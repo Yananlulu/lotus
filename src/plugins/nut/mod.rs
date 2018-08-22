@@ -1,9 +1,14 @@
 pub mod controllers;
 
 use chrono::Utc;
+use rocket::Route;
 use sitemap::structs::ChangeFreq;
 
 use super::{RssItem, SitemapItem};
+
+pub fn routes() -> Vec<(&'static str, Vec<Route>)> {
+    vec![("/", routes![controllers::index])]
+}
 
 pub fn sitemap() -> Vec<SitemapItem> {
     vec![(

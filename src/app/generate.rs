@@ -41,11 +41,13 @@ pub fn config() -> Result<()> {
     let cfg = env::Config {
         name: String::from("www.change-me.com"),
         secret_key: base64::encode(&utils::random::bytes(32)),
-        env: "development".to_string(),
-
+        env: format!("{}", rocket::config::Environment::Development),
         http: env::Http {
             theme: String::from("bootstrap"),
             port: 8080,
+            workers: 32,
+            logging_level: format!("{}", rocket::config::LoggingLevel::Debug),
+            limits: 1 << 16,
         },
         oauth: oauth::Config {
             line: Some(oauth::line::Config {
