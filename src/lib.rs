@@ -1,3 +1,5 @@
+#![feature(plugin, custom_derive, custom_attribute, extern_prelude)]
+#![plugin(rocket_codegen)]
 #![recursion_limit = "1024"]
 
 #[macro_use]
@@ -16,6 +18,8 @@ extern crate validator_derive;
 extern crate juniper;
 #[macro_use]
 extern crate lazy_static;
+#[macro_use]
+extern crate gotham_derive;
 
 extern crate base64;
 extern crate byteorder;
@@ -35,7 +39,8 @@ extern crate ini;
 extern crate language_tags;
 extern crate lettre;
 extern crate lettre_email;
-extern crate log4rs;
+extern crate rocket;
+// extern crate log4rs;
 extern crate maxminddb;
 extern crate md5;
 extern crate mime;
@@ -76,15 +81,10 @@ pub mod orm;
 pub mod plugins;
 pub mod queue;
 pub mod request;
+pub mod response;
 pub mod rfc;
 pub mod router;
 pub mod settings;
 pub mod storage;
 pub mod sys;
 pub mod utils;
-
-use chrono::NaiveDateTime;
-use sitemap::structs::ChangeFreq;
-
-pub type SitemapItem = (String, f32, ChangeFreq, NaiveDateTime);
-pub type RssItem = (String, String, String, NaiveDateTime);

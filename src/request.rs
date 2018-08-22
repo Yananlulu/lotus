@@ -1,3 +1,48 @@
+use futures::{future, Future};
+use gotham::{
+    handler::HandlerFuture,
+    http::response::create_response,
+    middleware::Middleware,
+    pipeline::{new_pipeline, single::single_pipeline},
+    router::{builder::*, Router},
+    state::{FromState, State},
+};
+use hyper::{
+    header::{AcceptLanguage, Authorization, Headers, Host},
+    Response, StatusCode,
+};
+
+#[derive(StateData)]
+pub struct Session {
+    pub locale: String,
+    pub home: String,
+    pub token: Option<String>,
+}
+
+#[derive(Clone, NewMiddleware)]
+pub struct SessionMiddleware;
+
+impl Middleware for SessionMiddleware {
+    fn call<Chain>(self, mut state: State, chain: Chain) -> Box<HandlerFuture>
+    where
+        Chain: FnOnce(State) -> Box<HandlerFuture>,
+    {
+        // Prior to letting Request handling proceed our middleware creates some new data and adds
+        // it to `state`.
+        state.put(Session {
+            locale: "".to_string(),
+            home: "".to_string(),
+            token: None,
+        });
+
+        let result = chain(state);
+
+        let fun = result.and_then(move |(state, response)| future::ok((state, response)));
+
+        Box::new(fun)
+    }
+}
+
 // use std::collections::HashMap;
 // use std::ops::Deref;
 // use std::str::FromStr;

@@ -6,6 +6,8 @@ error_chain!{
         StdNumParseInt(::std::num::ParseIntError);
 
         SerdeJson(::serde_json::Error);
+        SerdeYaml(::serde_yaml::Error);
+        SerdeXml(::serde_xml_rs::Error);
         Redis(::redis::RedisError);
         R2d2(::r2d2::Error);
         ChronoParse(::chrono::ParseError);
@@ -18,12 +20,11 @@ error_chain!{
         UrlParse(::url::ParseError);
         TomlSer(::toml::ser::Error);
         TomlDe(::toml::de::Error);
-        Log4rs(::log4rs::Error);
+        // Log4rs(::log4rs::Error);
         Validator(::validator::ValidationErrors);
         Mustache(::mustache::Error);
         Regex(::regex::Error);
         Hyper(::hyper::Error);
         Rss(::rss::Error);
-        SerdeYaml(::serde_yaml::Error);
     }
 }

@@ -3,7 +3,7 @@ pub mod controllers;
 use chrono::Utc;
 use sitemap::structs::ChangeFreq;
 
-use super::super::{RssItem, SitemapItem};
+use super::{RssItem, SitemapItem};
 
 pub const NAME: &'static str = "forum";
 
