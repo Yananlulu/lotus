@@ -1,4 +1,6 @@
 pub mod controllers;
+pub mod dao;
+pub mod models;
 
 use chrono::Utc;
 use rocket::Route;
