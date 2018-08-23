@@ -1,4 +1,7 @@
+use rocket_contrib::Template;
+
 #[get("/")]
-pub fn index() -> String {
-    "hi".to_string()
+fn index() -> Template {
+    let ctx = json!({});
+    Template::render("index", &ctx)
 }
