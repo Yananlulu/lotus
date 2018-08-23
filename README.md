@@ -25,7 +25,7 @@ docker run --name lotus -d -p 2222:22 -p 8080:8080 -p 3000:3000 -v "$(pwd)":/app
 docker start lotus # next time
 ```
 
--   Login to
+-   Login to docker
 
 ```bash
 ssh -p 2222 root@localhost # password is toor
