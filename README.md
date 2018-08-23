@@ -34,38 +34,38 @@ ssh -p 2222 root@localhost # password is toor
 -   Install dependencies
 
 ```bash
-cargo build
-npm run install
-cd dashboard && npm run install && cd -
-cd tools && bundle install && cd -
+> cargo build
+> npm run install
+> cd dashboard && npm run install && cd -
+> cd tools && bundle install && cd -
 ```
 
 -   Database
 
 ```bash
-cd tools
-rake db:create # creates database
-rake db:drop # dorps database
-rake db:migrate # migrate database
+> cd tools
+> rake db:create # creates database
+> rake db:drop # dorps database
+> rake db:migrate # migrate database
 ```
 
 -   Development
 
 ```bash
 # backend
-cargo build
-./target/debug/lotus generate:config # generate config.toml file
-cargo run # http://localhost:8080
+> cargo build
+> ./target/debug/lotus generate:config # generate config.toml file
+> cargo run # http://localhost:8080
 # for frontend
-cd dashboard
-npm run start # http://localhost:3000
+> cd dashboard
+> npm run start # http://localhost:3000
 ```
 
 -   Deployment
 
 ```bash
-make
-ls -l dist
+> make
+> ls -l dist
 ```
 
 ## Notes
