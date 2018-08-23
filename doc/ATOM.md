@@ -1,6 +1,5 @@
 ## ATOM
 
-
 ## plugins
 
 -   autosave: enable
@@ -8,3 +7,4 @@
 -   atom-beautify: enable beautify on save
 -   ide-rust: disable toolchain update checking
 -   language-babel
+-   language-docker

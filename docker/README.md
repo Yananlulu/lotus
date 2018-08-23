@@ -1,6 +1,6 @@
 ## Usage
 
-### docker
+### build for yourself
 
 ```bash
 docker build -t lotus .
@@ -16,10 +16,6 @@ docker start lotus
 docker rm lotus
 ```
 
--   ssh
+## Documents
 
-```bash
-cd /app
-cargo run
-cd dashboard
-```
+-   [Run multiple services in a container](https://docs.docker.com/config/containers/multi-service_container/)

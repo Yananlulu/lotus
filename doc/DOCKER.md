@@ -2,7 +2,7 @@
 
 -   [Document](https://docs.docker.com/install/)
 
--   Install
+-   Install(for archlinux)
 
 ```bash
 sudo pacman -S docker
@@ -10,8 +10,7 @@ sudo systemctl enable docker
 sudo gpasswd -a who-am-i docker
 ```
 
--   Usage
-
 ```bash
-
+docker image prune # remove all dangling images
+docker ps
 ```
