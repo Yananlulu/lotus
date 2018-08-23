@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "umi dev",
+    "start": "PORT=3000 umi dev",
     "build": "BASE_URL=/my/ umi build"
   },
   "devDependencies": {
