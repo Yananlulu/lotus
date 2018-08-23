@@ -58,7 +58,7 @@ impl Config {
     }
     pub fn rocket(&self) -> Result<rocket::config::Config> {
         Ok(rocket::config::Config::build(self.env())
-            .address("127.0.0.1")
+            .address("0.0.0.0")
             .port(self.http.port)
             .workers(self.http.workers)
             .log_level(match self
