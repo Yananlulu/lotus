@@ -20,7 +20,8 @@ make # dist.tar.xz
 
 ```bash
 git clone https://github.com/saturn-xiv/lotus.git # or your repo
-docker run --name lotus -d -p 2222:22 -p 8080:8080 -p 3000:3000 -v lotus:/app chonglou/lotus:latest # ONLY FOR FIRST TIME
+cd lotus
+docker run --name lotus -d -p 2222:22 -p 8080:8080 -p 3000:3000 -v "$(pwd)":/app chonglou/lotus:latest # ONLY FOR FIRST TIME
 docker start lotus # next time
 ```
 
