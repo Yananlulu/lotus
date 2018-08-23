@@ -1,0 +1,5 @@
+nut:
+  emails:
+    user:
+      confirm:
+        subject: 激活信息
