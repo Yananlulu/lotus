@@ -3,10 +3,9 @@ import React, {
 } from 'react'
 import PropTypes from 'prop-types'
 import {
-  injectIntl,
-  intlShape,
+  formatMessage,
   FormattedMessage
-} from 'react-intl'
+} from 'umi/locale'
 import HeaderSearch from 'ant-design-pro/lib/HeaderSearch'
 import {
   Icon,
@@ -25,7 +24,8 @@ import {
   set as setLocale
 } from '../utils/locale'
 import {
-  client,
+  get,
+  delete_,
   failed
 } from '../utils/request'
 import {
@@ -56,9 +56,6 @@ class Widget extends Component {
     const {
       dispatch
     } = this.props
-    const {
-      formatMessage
-    } = this.props.intl
 
     const lang = 'lang-';
     if (e.key.startsWith(lang)) {
@@ -87,11 +84,7 @@ class Widget extends Component {
             id: "header.sign-out.confirm"
           }),
           onOk() {
-            client().request(`mutation form{
-              signOutUser {
-                createdAt
-              }
-            }`, {}).then((rst) => {
+            delete_('/users/sign-out').then((rst) => {
               router.push('/users/sign-in')
               message.info(formatMessage({
                 id: "flashes.success"
@@ -261,9 +254,6 @@ class Widget extends Component {
     return items
   }
   headerMenus = (auth) => {
-    const {
-      formatMessage
-    } = this.props.intl
     var items = []
     if (is_sign_in(auth)) {
       items.push({
@@ -291,13 +281,9 @@ class Widget extends Component {
     return items
   }
   componentDidMount() {
-    client().request(`query info{
-        getSiteInfo{
-          languages
-        }
-      }`, {}).then((rst) => {
+    get('/site/info').then((data) => {
       this.setState({
-        languages: rst.getSiteInfo.languages
+        languages: data.languages
       })
     }).catch(failed)
   }
@@ -355,7 +341,6 @@ class Widget extends Component {
 
 Widget.propTypes = {
   children: PropTypes.node.isRequired,
-  intl: intlShape.isRequired,
   currentUser: PropTypes.object.isRequired,
 }
 
@@ -363,4 +348,4 @@ export default connect(({
   currentUser
 }) => ({
   currentUser,
-}))(injectIntl(Widget))
+}))(Widget)

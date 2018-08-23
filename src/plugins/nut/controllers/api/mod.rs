@@ -5,17 +5,43 @@ use std::ops::Add;
 use std::ops::Deref;
 
 use chrono::{Duration, Utc};
-use diesel::Connection;
+use diesel::{prelude::*, Connection};
 use rocket_contrib::{Json, Value};
 use validator::Validate;
 
 use super::super::super::super::{
     errors::{Error, Result},
-    orm::PooledConnection as Db,
+    i18n,
+    orm::{schema::locales, PooledConnection as Db},
     request::Locale,
     utils,
 };
 use super::super::{dao, models::Role};
+
+#[get("/site/info")]
+fn site_info(db: Db, lng: Locale) -> Result<Json<Value>> {
+    let db = db.deref();
+    let Locale(lng) = lng;
+
+    Ok(Json(json!({
+        "title": t!(db, &lng, "site.title"),
+        "subhead": t!(db, &lng, "site.subhead"),
+        "keywords": t!(db, &lng, "site.keywords"),
+        "description": t!(db, &lng, "site.description"),
+        "copyright": t!(db, &lng, "site.copyright"),
+        "languages": i18n::languages(db)?,
+    })))
+}
+
+#[get("/locales/<lang>")]
+fn locales(db: Db, lang: String) -> Result<Json<Value>> {
+    let db = db.deref();
+    let items = locales::dsl::locales
+        .order(locales::dsl::code.asc())
+        .filter(locales::dsl::lang.eq(&lang))
+        .load::<i18n::Locale>(db)?;
+    Ok(Json(json!(items)))
+}
 
 #[post("/install", format = "application/json", data = "<form>")]
 fn install(

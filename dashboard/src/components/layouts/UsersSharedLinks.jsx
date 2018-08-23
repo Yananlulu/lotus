@@ -10,7 +10,7 @@ import {
 } from 'antd'
 import {
   FormattedMessage
-} from 'react-intl'
+} from 'umi/locale'
 import router from 'umi/router'
 
 import Head from '../Head'

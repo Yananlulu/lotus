@@ -4,10 +4,9 @@ import React, {
 import PropTypes from 'prop-types'
 import router from 'umi/router'
 import {
-  injectIntl,
-  intlShape,
+  formatMessage,
   FormattedMessage
-} from 'react-intl'
+} from 'umi/locale'
 import {
   Form,
   Input,
@@ -32,9 +31,6 @@ class Widget extends Component {
       action,
       query
     } = this.props
-    const {
-      formatMessage
-    } = this.props.intl
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       if (!err) {
@@ -51,9 +47,7 @@ class Widget extends Component {
     const {
       action
     } = this.props
-    const {
-      formatMessage
-    } = this.props.intl
+
     const {
       getFieldDecorator
     } = this.props.form
@@ -81,9 +75,8 @@ class Widget extends Component {
 }
 
 Widget.propTypes = {
-  intl: intlShape.isRequired,
   action: PropTypes.string.isRequired,
   query: PropTypes.string.isRequired
 }
 
-export default Form.create()(injectIntl(Widget))
+export default Form.create()(Widget)

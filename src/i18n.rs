@@ -1,6 +1,5 @@
-use chrono::Utc;
+use chrono::{NaiveDateTime, Utc};
 use diesel::{insert_into, prelude::*, update};
-
 use mustache;
 use serde::ser::Serialize;
 
@@ -8,6 +7,16 @@ use super::{
     errors::{Error, Result},
     orm::{schema::locales, Connection as Db},
 };
+
+#[derive(Queryable, Serialize)]
+pub struct Locale {
+    pub id: i64,
+    pub lang: String,
+    pub code: String,
+    pub message: String,
+    pub created_at: NaiveDateTime,
+    pub updated_at: NaiveDateTime,
+}
 
 pub fn languages(db: &Db) -> Result<Vec<String>> {
     Ok(locales::dsl::locales

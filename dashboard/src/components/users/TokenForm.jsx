@@ -4,14 +4,13 @@ import React, {
 import PropTypes from 'prop-types'
 import router from 'umi/router'
 import {
-  injectIntl,
-  intlShape
-} from 'react-intl'
+  formatMessage
+} from 'umi/locale'
+import withRouter from 'umi/withRouter'
 import {
   message,
   Spin
 } from 'antd'
-import withRouter from 'umi/withRouter'
 
 import {
   client,
@@ -25,9 +24,6 @@ class Widget extends Component {
       query,
       match
     } = this.props
-    const {
-      formatMessage
-    } = this.props.intl
 
     client().request(query, match.params).then((rst) => {
       message.info(formatMessage({
@@ -42,9 +38,8 @@ class Widget extends Component {
 }
 
 Widget.propTypes = {
-  intl: intlShape.isRequired,
   action: PropTypes.string.isRequired,
   query: PropTypes.string.isRequired
 }
 
-export default withRouter(injectIntl(Widget))
+export default withRouter(Widget)

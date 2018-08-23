@@ -9,7 +9,17 @@ use sitemap::structs::ChangeFreq;
 use super::{RssItem, SitemapItem};
 
 pub fn routes() -> Vec<(&'static str, Vec<Route>)> {
-    vec![("/", routes![controllers::index])]
+    vec![
+        ("/", routes![controllers::index]),
+        (
+            "/api",
+            routes![
+                controllers::api::locales,
+                controllers::api::site_info,
+                controllers::api::install
+            ],
+        ),
+    ]
 }
 
 pub fn sitemap() -> Vec<SitemapItem> {

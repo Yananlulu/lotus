@@ -8,7 +8,7 @@ import {
 } from 'antd'
 import {
   FormattedMessage
-} from 'react-intl'
+} from 'umi/locale'
 
 import Head from '../Head'
 

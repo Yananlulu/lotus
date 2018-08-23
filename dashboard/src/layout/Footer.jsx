@@ -4,7 +4,7 @@ import React, {
 import GlobalFooter from 'ant-design-pro/lib/GlobalFooter'
 import {
   FormattedMessage
-} from 'react-intl'
+} from 'umi/locale'
 import {
   Icon
 } from 'antd'
