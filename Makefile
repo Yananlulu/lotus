@@ -7,7 +7,7 @@ api:
 	GIT_HEAD=`git rev-parse --short HEAD` BUILD_TIME=`date -R` cargo build --release
 	strip -s target/release/lotus
 	mkdir -p $(dist)/public $(dist)/tmp
-	-cp -r target/release/lotus templates themes log4rs.yml package.json package-lock.json LICENSE README.md $(dist)/
+	-cp -r target/release/lotus locales tools templates themes log4rs.yml package.json package-lock.json LICENSE README.md $(dist)/
 
 www:
 	cd dashboard && npm run build
