@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
+import Exception from 'ant-design-pro/lib/Exception'
 
 class Widget extends Component {
   render() {
-    return (<div>not found</div>)
+    return (<Exception type="404"/>)
   }
 }
 

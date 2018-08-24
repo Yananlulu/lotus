@@ -1,9 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
-import {createStore} from 'redux'
+import {applyMiddleware, compose, createStore} from 'redux'
 import {addLocaleData, IntlProvider} from 'react-intl'
 import {LocaleProvider} from 'antd'
+import {createBrowserHistory} from 'history'
+import {connectRouter, routerMiddleware} from 'connected-react-router'
 
 import './main.css'
 import App from './App'
@@ -11,9 +13,9 @@ import reducers from './reducers'
 import {get, failed} from './utils/request'
 import {detect as detectLocale} from './utils/locale'
 
-const store = createStore(reducers)
-
 const main = (node) => {
+  const history = createBrowserHistory({basename: '/my/'})
+  const store = createStore(connectRouter(history)(reducers), {}, compose(applyMiddleware(routerMiddleware(history))))
   const intl = detectLocale()
 
   get(`/locales/${intl.locale}`).then((data) => {
@@ -25,7 +27,7 @@ const main = (node) => {
           return ar
         }, {})}>
         <LocaleProvider locale={intl.antd}>
-          <App/>
+          <App history={history}/>
         </LocaleProvider>
       </IntlProvider>
     </Provider>), node)
