@@ -1,19 +1,56 @@
 import {notification} from 'antd'
 import moment from 'moment'
 
-export const failed = (err) => notification.error({message: moment().format('ll LTS'), description: JSON.stringify(err), duration: 30})
+import {get as getToken} from './token'
 
-const status = (res) => {
-  if (res.status === 200) {
-    return Promise.resolve(res)
+export const failed = (err) => notification.error({message: moment().format('ll LTS'), description: err, duration: 30})
+
+export const backend = (url) => `/api${url}`
+
+export const options = (method) => {
+  return {
+    method: method,
+    // mode: 'cors',
+    credentials: 'include',
+    headers: {
+      'Authorization': `BEARER ${getToken()}`
+    }
   }
-  return Promise.reject(res.statusText)
 }
 
-const json = (res) => res.json()
+const parse = (res) => {
+  // res.status === 200 || res.status === 0
+  return res.ok
+    ? res.json()
+    : res.text().then(err => {
+      throw err
+    })
+}
 
-const api = (url) => `/api${url}`
+export const get = (path) => {
+  return fetch(backend(path), options('GET')).then(parse)
+}
 
-export const get = (url) => fetch(api(url)).then(status).then(json)
+export const delete_ = (path) => {
+  return fetch(backend(path), options('DELETE')).then(parse)
+}
 
-export const delete_ = (url) => fetch(api(url)).then(status).then(json)
+// https://github.github.io/fetch/#options
+export const post = (path, body) => {
+  var data = options('POST')
+  data.body = JSON.stringify(body)
+  data.headers['Content-Type'] = "application/json; charset=utf-8"
+  return fetch(backend(path), data).then(parse)
+}
+
+export const patch = (path, body) => {
+  var data = options('PATCH')
+  data.body = JSON.stringify(body)
+  return fetch(backend(path), data).then(parse)
+}
+
+export const put = (path, body) => {
+  var data = options('PUT')
+  data.body = JSON.stringify(body)
+  return fetch(backend(path), data).then(parse)
+}

@@ -60,7 +60,7 @@ pub fn routes() -> Vec<(&'static str, Vec<Route>)> {
 }
 
 pub fn catchers() -> Vec<Catcher> {
-    catchers![not_found, forbidden, internal_server_error]
+    catchers![not_found, bad_request, forbidden, internal_server_error]
 }
 
 #[get("/global/<file..>")]
@@ -193,6 +193,11 @@ fn rss_atom(db: Db, home: Home, lang: String) -> Result<Xml<Vec<u8>>> {
     ch.write_to(&mut buf)?;
 
     Ok(Xml(buf))
+}
+
+#[catch(400)]
+fn bad_request() -> &'static str {
+    Status::BadRequest.reason
 }
 
 #[catch(404)]

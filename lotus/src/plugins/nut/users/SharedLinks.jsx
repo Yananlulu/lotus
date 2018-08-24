@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {Col, Card, Icon, Menu} from 'antd'
+import {Icon, Menu} from 'antd'
 import {FormattedMessage} from 'react-intl'
-import {withRouter} from 'react-router-dom'
-
-import Head from '../Head'
+import {connect} from 'react-redux'
+import {push} from 'connected-react-router'
 
 class Widget extends Component {
   constructor(props) {
@@ -40,35 +39,20 @@ class Widget extends Component {
     }
   }
   render() {
-    const {children, title, router} = this.props
-    return (<Col xs={{
-        span: 22,
-        offset: 1
-      }} lg={{
-        span: 14,
-        offset: 2
-      }}>
-      <Card title={(<FormattedMessage id={title}/>)} extra={(<Icon onClick={() => window.open("/", "_blank")} type="home"/>)}>
-        {children}
-        <Menu onClick={(e) => router.push(e.key)} mode="inline">
-          {
-            this.state.items.map((it) => (<Menu.Item key={it.to}>
-              <Icon type={it.icon}/>
-              <FormattedMessage id={it.label}/>
-            </Menu.Item>))
-          }
-        </Menu>
-        <Head title={{
-            id: title
-          }}/>
-      </Card>
-    </Col>)
+    const {push} = this.props
+    return (<Menu onClick={(e) => push(e.key)} mode="inline">
+      {
+        this.state.items.map((it) => (<Menu.Item key={it.to}>
+          <Icon type={it.icon}/>
+          <FormattedMessage id={it.label}/>
+        </Menu.Item>))
+      }
+    </Menu>)
   }
 }
 
 Widget.propTypes = {
-  children: PropTypes.node.isRequired,
-  title: PropTypes.string.isRequired
+  push: PropTypes.func.isRequired
 }
 
-export default withRouter(Widget)
+export default connect((state) => ({}), {push})(Widget)
