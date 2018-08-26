@@ -1,12 +1,8 @@
-import React, {
-  Component
-} from 'react'
+import React, {Component} from 'react'
 
 class Widget extends Component {
   render() {
-    return (
-      <div>users sign in</div>
-    )
+    return (<div>users sign in</div>)
   }
 }
 
