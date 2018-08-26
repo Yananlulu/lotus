@@ -10,7 +10,7 @@ curl https://sh.rustup.rs -sSf | sh
 
 ```bash
 source $HOME/.cargo/env
-RUSTFLAGS="-Aproc-macro-derive-resolution-fallback" # https://github.com/diesel-rs/diesel/issues/1785
+export RUSTFLAGS="-Aproc-macro-derive-resolution-fallback" # https://github.com/diesel-rs/diesel/issues/1785
 ```
 
 -   Close and reopen your terminal to start using
