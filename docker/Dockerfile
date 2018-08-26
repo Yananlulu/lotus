@@ -17,21 +17,10 @@ RUN apt-get update \
   && apt-get -y autoremove \
   && apt-get -y clean
 
-# setup
-RUN echo "local   all             all                                     trust" > "/etc/postgresql/10/main/pg_hba.conf"
-RUN echo "host    all             all             127.0.0.1/32            trust" >> "/etc/postgresql/10/main/pg_hba.conf"
-RUN echo "bind 127.0.0.1" >> /etc/redis/redis.conf
-RUN /usr/sbin/rabbitmq-plugins enable rabbitmq_management
-RUN chown rabbitmq:rabbitmq /var/lib/rabbitmq/.erlang.cookie
-RUN chmod 600 /var/lib/rabbitmq/.erlang.cookie
-RUN mkdir /var/run/sshd
-RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
-RUN locale-gen
-RUN update-locale LANG=en_US.UTF-8
-
 # deploy
 RUN useradd -s /bin/zsh -m deploy
 RUN echo 'deploy:123456' | chpasswd
+RUN echo 'deploy ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/101-deploy
 USER deploy
 
 # zsh
@@ -57,6 +46,23 @@ RUN /install.sh
 
 USER root
 
+# setup
+RUN /usr/sbin/rabbitmq-plugins enable rabbitmq_management
+RUN chown rabbitmq:rabbitmq /var/lib/rabbitmq/.erlang.cookie
+RUN chmod 600 /var/lib/rabbitmq/.erlang.cookie
+
+RUN mkdir /var/run/sshd
+
+RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
+RUN locale-gen
+RUN update-locale LANG=en_US.UTF-8
+
+RUN echo "local   all             all                                     trust" > "/etc/postgresql/10/main/pg_hba.conf"
+RUN echo "host    all             all             all            trust" >> "/etc/postgresql/10/main/pg_hba.conf"
+RUN echo "listen_addresses = '0.0.0.0'" >> /etc/postgresql/10/main/postgresql.conf
+
+RUN sed 's/^protected-mode yes/protected-mode no/' -i /etc/redis/redis.conf
+#RUN echo "bind 0.0.0.0" >> /etc/redis/redis.conf
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
