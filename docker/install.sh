@@ -13,5 +13,5 @@ gem install rubocop
 
 # rust
 rustup override set nightly
-rustup component add rls-preview rust-analysis rust-src rustfmt-preview
+# rustup component add rls-preview rust-analysis rust-src rustfmt-preview
 cargo install --force diesel_cli --no-default-features --features postgres
