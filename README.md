@@ -7,59 +7,60 @@ A complete open source Office-Automation solution.
 -   Clone project
 
 ```bash
-cargo install diesel_cli --force
+cargo install --force diesel_cli --no-default-features --features "postgres mysql"
 
 npm install && cd dashboard && npm install --no-save && cd -
 cd lotus
 make # dist.tar.xz
 ```
 
--   Install [docker](doc/DOCKER.md)
+-   Install [docker](doc/DOCKER.md), [rust](doc/RUST.md), [ruby](doc/RUBY.md), [nodejs](doc/NODEJS.md)
 
 -   Start docker
 
 ```bash
 git clone https://github.com/saturn-xiv/lotus.git # or your repo
 cd lotus
-docker run --name lotus -d -p 2222:22 -p 8080:8080 -p 3000:3000 -v "$(pwd)":/app chonglou/lotus:latest # ONLY FOR FIRST TIME
+docker pull chonglou/lotus:latest
+docker run --name lotus -d -p 2222:22 -p 8080:8080 -p 3000:3000 -p 6379:6379 -p 5432:5432 -p 3306:3306 -p 5672:5672 -p 15672:15672 -v "$(pwd)":/app chonglou/lotus:latest # ONLY FOR FIRST TIME
 docker start lotus # next time
 ```
 
 -   Login to docker
 
 ```bash
-ssh -p 2222 root@localhost # password is toor
+ssh -p 2222 deploy@localhost # password is 123456
 > cd /app # is your work folder
 ```
 
 -   Install dependencies
 
 ```bash
-> cargo build
-> npm run install
-> cd dashboard && npm run install && cd -
-> cd tools && bundle install && cd -
+cargo build
+npm run install
+cd dashboard && npm run install && cd -
+cd tools && bundle install && cd -
 ```
 
 -   Database
 
 ```bash
-> cd tools
-> rake db:create # creates database
-> rake db:drop # dorps database
-> rake db:migrate # migrate database
+cd tools
+rake db:create # creates database
+rake db:drop # dorps database
+rake db:migrate # migrate database
 ```
 
 -   Development
 
 ```bash
 # backend
-> cargo build
-> ./target/debug/lotus generate:config # generate config.toml file
-> cargo run # http://localhost:8080
+cargo build
+./target/debug/lotus generate:config # generate config.toml file
+cargo run # http://localhost:8080
 # for frontend
-> cd dashboard
-> npm run start # http://localhost:3000
+cd dashboard
+npm run start # http://localhost:3000
 ```
 
 -   Deployment

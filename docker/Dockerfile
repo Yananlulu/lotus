@@ -13,7 +13,7 @@ RUN apt-get update \
   && apt-get -y install curl build-essential git pkg-config zsh vim net-tools psmisc inotify-tools pwgen sudo logrotate \
   && apt-get -y install libsodium-dev libpq-dev libmysqlclient-dev \
   && apt-get -y install libssl-dev libreadline-dev zlib1g-dev \
-  && apt-get -y install postgresql redis rabbitmq-server openssh-server nginx supervisor \
+  && apt-get -y install postgresql mysql-server redis rabbitmq-server openssh-server nginx supervisor \
   && apt-get -y autoremove \
   && apt-get -y clean
 
@@ -61,12 +61,12 @@ RUN echo "local   all             all                                     trust"
 RUN echo "host    all             all             all            trust" >> "/etc/postgresql/10/main/pg_hba.conf"
 RUN echo "listen_addresses = '0.0.0.0'" >> /etc/postgresql/10/main/postgresql.conf
 
-RUN sed 's/^protected-mode yes/protected-mode no/' -i /etc/redis/redis.conf
-#RUN echo "bind 0.0.0.0" >> /etc/redis/redis.conf
+RUN mkdir -p /var/run/mysqld
+RUN chown -R mysql:mysql /var/run/mysqld
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-EXPOSE 3000/tcp 8080/tcp 22/tcp 5432/tcp 6379/tcp 5672/tcp 15672/tcp
+EXPOSE 3000/tcp 8080/tcp 22/tcp 5432/tcp 3306/tcp 6379/tcp 5672/tcp 15672/tcp
 
 VOLUME /app
 
