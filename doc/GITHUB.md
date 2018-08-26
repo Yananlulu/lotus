@@ -11,7 +11,7 @@ Just click the fork button [lotus](https://github.com/saturn-xiv/lotus)
 ```bash
 git clone CHANGE-ME # click the "clone or download" button can see the url
 cd lotus
-git remote add upstream https://github.com/cinnabaris/arche.git
+git remote add upstream https://github.com/saturn-xiv/lotus.git
 git checkout development # development is your working branch
 ```
 

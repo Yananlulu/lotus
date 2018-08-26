@@ -25,6 +25,7 @@ import {
   is_library_manager,
   is_hotel_manager
 } from '../utils/authorized'
+import {HOME} from '../utils/config'
 import NoticeBar from './NoticeBar'
 import Footer from './Footer'
 
@@ -52,7 +53,7 @@ class Widget extends Component {
         window.open("/", "_blank")
         return;
       case 'doc':
-        window.open('https://github.com/cinnabaris/arche', "_blank")
+        window.open(HOME, "_blank")
         return
       case 'sign-in':
         push('/users/sign-in')

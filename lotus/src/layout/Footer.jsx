@@ -3,6 +3,8 @@ import GlobalFooter from 'ant-design-pro/lib/GlobalFooter'
 import {FormattedMessage} from 'react-intl'
 import {Icon} from 'antd'
 
+import {HOME} from '../utils/config'
+
 const Copyright = () => (<div>
   <Icon type="copyright"/>
   <FormattedMessage id="site.copyright"/>
@@ -11,22 +13,22 @@ const Copyright = () => (<div>
 class Widget extends Component {
   constructor(props) {
     super(props)
-    const home = 'https://github.com/cinnabaris/arche'
     this.state = {
       items: [
         {
           key: 'help',
           title: <FormattedMessage id="footer.help"/>,
-          href: `${home}/blob/master/README.md`
+          href: `${HOME}/blob/master/README.md`,
+          blankTarget: true
         }, {
           key: 'github',
           title: <Icon type="github"/>,
-          href: home,
+          href: HOME,
           blankTarget: true
         }, {
           key: 'license',
           title: <FormattedMessage id="footer.license"/>,
-          href: `${home}/blob/master/LICENSE`,
+          href: `${HOME}/blob/master/LICENSE`,
           blankTarget: true
         }
       ]
