@@ -3,17 +3,25 @@ FROM ubuntu:latest
 ENV DEBIAN_FRONTEND noninteractive
 
 # packages
-RUN apt-get update && apt-get -y install wget gnupg apt-utils
+RUN apt-get update && apt-get -y install apt-utils apt-transport-https wget gnupg
+
 RUN wget http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
 RUN apt-key add rabbitmq-signing-key-public.asc
 RUN echo "deb https://dl.bintray.com/rabbitmq/debian/ bionic main" > /etc/apt/sources.list.d/rabbitmq.list
+
+RUN wget https://artifacts.elastic.co/GPG-KEY-elasticsearch
+RUN apt-key add GPG-KEY-elasticsearch
+RUN echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" > /etc/apt/sources.list.d/elasticsearch.list
+
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6B73A36E6026DFCA
+
 RUN apt-get update \
   && apt-get -y upgrade \
   && apt-get -y install curl build-essential git pkg-config zsh vim net-tools psmisc inotify-tools pwgen sudo logrotate \
   && apt-get -y install libsodium-dev libpq-dev libmysqlclient-dev \
   && apt-get -y install libssl-dev libreadline-dev zlib1g-dev \
-  && apt-get -y install postgresql mysql-server redis rabbitmq-server openssh-server nginx supervisor \
+  && apt-get -y install openjdk-11-jdk \
+  && apt-get -y install postgresql mysql-server redis rabbitmq-server elasticsearch openssh-server nginx supervisor \
   && apt-get -y autoremove \
   && apt-get -y clean
 
@@ -44,29 +52,30 @@ RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.s
 COPY install.sh /install.sh
 RUN /install.sh
 
-USER root
+
 
 # setup
+USER postgres
+RUN /etc/init.d/postgresql start \
+  && psql --command "CREATE USER www WITH SUPERUSER PASSWORD '123456';"
+
+USER root
+RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
+RUN locale-gen
+RUN update-locale LANG=en_US.UTF-8
+
 RUN /usr/sbin/rabbitmq-plugins enable rabbitmq_management
 RUN chown rabbitmq:rabbitmq /var/lib/rabbitmq/.erlang.cookie
 RUN chmod 600 /var/lib/rabbitmq/.erlang.cookie
 
 RUN mkdir /var/run/sshd
 
-RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
-RUN locale-gen
-RUN update-locale LANG=en_US.UTF-8
-
-RUN echo "local   all             all                                     trust" > "/etc/postgresql/10/main/pg_hba.conf"
-RUN echo "host    all             all             all            trust" >> "/etc/postgresql/10/main/pg_hba.conf"
-RUN echo "listen_addresses = '0.0.0.0'" >> /etc/postgresql/10/main/postgresql.conf
-
 RUN mkdir -p /var/run/mysqld
 RUN chown -R mysql:mysql /var/run/mysqld
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-EXPOSE 3000/tcp 8080/tcp 22/tcp 5432/tcp 3306/tcp 6379/tcp 5672/tcp 15672/tcp
+EXPOSE 3000/tcp 8080/tcp 22/tcp
 
 VOLUME /app
 
