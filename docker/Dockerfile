@@ -18,7 +18,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6B73A36E6026DFCA
 RUN apt-get update \
   && apt-get -y upgrade \
   && apt-get -y install curl build-essential git pkg-config zsh vim net-tools psmisc inotify-tools pwgen sudo logrotate \
-  && apt-get -y install libsodium-dev libpq-dev libmysqlclient-dev \
+  && apt-get -y install libsodium-dev libpq-dev libmysqlclient-dev libsqlite-dev\
   && apt-get -y install libssl-dev libreadline-dev zlib1g-dev \
   && apt-get -y install openjdk-11-jdk \
   && apt-get -y install postgresql mysql-server redis rabbitmq-server elasticsearch openssh-server nginx supervisor \
