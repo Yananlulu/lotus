@@ -2,6 +2,11 @@
 
 set -e
 
+# java
+sdk install java
+sdk install maven
+sdk install gradle
+
 # nodejs
 nvm install node
 

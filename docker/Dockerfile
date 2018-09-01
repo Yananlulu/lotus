@@ -18,16 +18,16 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6B73A36E6026DFCA
 RUN apt-get update \
   && apt-get -y upgrade \
   && apt-get -y install curl build-essential git pkg-config zsh vim net-tools psmisc inotify-tools pwgen sudo logrotate \
-  && apt-get -y install libsodium-dev libpq-dev libmysqlclient-dev libsqlite-dev\
-  && apt-get -y install libssl-dev libreadline-dev zlib1g-dev \
-  && apt-get -y install openjdk-11-jdk \
-  && apt-get -y install postgresql mysql-server redis rabbitmq-server elasticsearch openssh-server nginx supervisor \
+  libsodium-dev libpq-dev libmysqlclient-dev libsqlite3-dev\
+  libssl-dev libreadline-dev zlib1g-dev \
+  openjdk-11-jdk \
+  postgresql mysql-server redis rabbitmq-server elasticsearch openssh-server nginx supervisor \
   && apt-get -y autoremove \
   && apt-get -y clean
 
 # deploy
 RUN useradd -s /bin/zsh -m deploy
-RUN echo 'deploy:123456' | chpasswd
+RUN passwd -l deploy
 RUN echo 'deploy ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/101-deploy
 USER deploy
 
@@ -41,7 +41,6 @@ RUN git clone https://github.com/rbenv/rbenv-vars.git $HOME/.rbenv/plugins/rbenv
 RUN echo 'export PATH=$HOME/.rbenv/bin:$PATH' >> $HOME/.zshrc
 RUN echo 'eval "$(rbenv init -)"' >> $HOME/.zshrc
 
-
 # rustup
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 RUN echo 'export PATH=$HOME/.cargo/bin:$PATH' >> $HOME/.zshrc
@@ -49,10 +48,12 @@ RUN echo 'export PATH=$HOME/.cargo/bin:$PATH' >> $HOME/.zshrc
 # nvm
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | zsh
 
+# sdkman
+RUN curl -s "https://get.sdkman.io" | zsh
+RUN echo 'source "$HOME/.sdkman/bin/sdkman-init.sh"' >> $HOME/.zshrc
+
 COPY install.sh /install.sh
 RUN /install.sh
-
-
 
 # setup
 USER postgres
