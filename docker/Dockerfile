@@ -3,7 +3,9 @@ FROM ubuntu:latest
 ENV DEBIAN_FRONTEND noninteractive
 
 # packages
-RUN apt-get update && apt-get -y install apt-utils apt-transport-https wget gnupg
+RUN apt-get update && apt-get -y install apt-utils apt-transport-https wget gnupg software-properties-common
+RUN add-apt-repository -y ppa:webupd8team/java
+RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | debconf-set-selections
 
 RUN wget http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
 RUN apt-key add rabbitmq-signing-key-public.asc
@@ -20,8 +22,9 @@ RUN apt-get update \
   && apt-get -y install build-essential pkg-config zsh net-tools psmisc inotify-tools logrotate \
   zip unzip telnet curl git vim pwgen sudo \
   libsodium-dev libpq-dev libmysqlclient-dev libsqlite3-dev\
-  libssl-dev libreadline-dev zlib1g-dev \
+  libssl-dev libreadline-dev zlib1g-dev oracle-java8-installer\
   postgresql mysql-server redis rabbitmq-server openssh-server nginx supervisor \
+  && apt-get -y install elasticsearch \
   && apt-get -y autoremove \
   && apt-get -y clean
 
@@ -41,8 +44,6 @@ ADD rbenv.sh /rbenv.sh
 RUN /rbenv.sh
 ADD rustup.sh /rustup.sh
 RUN /rustup.sh
-ADD elasticsearch.sh /elasticsearch.sh
-RUN /elasticsearch.sh
 
 # setup
 USER root
