@@ -17,8 +17,8 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6B73A36E6026DFCA
 
 RUN apt-get update \
   && apt-get -y upgrade \
-  && apt-get -y install curl build-essential git pkg-config zsh vim net-tools psmisc inotify-tools pwgen sudo logrotate \
-  zip unzip \
+  && apt-get -y install build-essential pkg-config zsh net-tools psmisc inotify-tools logrotate \
+  zip unzip telnet curl git vim pwgen sudo \
   libsodium-dev libpq-dev libmysqlclient-dev libsqlite3-dev\
   libssl-dev libreadline-dev zlib1g-dev \
   postgresql mysql-server redis rabbitmq-server openssh-server nginx supervisor \
@@ -37,12 +37,12 @@ ADD nvm.sh /nvm.sh
 RUN /nvm.sh
 ADD sdkman.sh /sdkman.sh
 RUN /sdkman.sh
-# ADD rbenv.sh /rbenv.sh
-# RUN /rbenv.sh
-# ADD rustup.sh /rustup.sh
-# RUN /rustup.sh
-# ADD elasticsearch.sh /elasticsearch.sh
-# RUN /elasticsearch.sh
+ADD rbenv.sh /rbenv.sh
+RUN /rbenv.sh
+ADD rustup.sh /rustup.sh
+RUN /rustup.sh
+ADD elasticsearch.sh /elasticsearch.sh
+RUN /elasticsearch.sh
 
 # setup
 USER root
