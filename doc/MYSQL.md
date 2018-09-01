@@ -1,5 +1,15 @@
 ## MySql
 
+-   create database with owner
+
+```bash
+$ mysql -u root -p
+> CREATE DATABASE db-name;
+> CREATE USER 'who-am-i'@'localhost' IDENTIFIED BY 'change-me';
+> GRANT ALL PRIVILEGES ON db-name.* TO 'who-am-i'@'localhost';
+> FLUSH PRIVILEGES;
+```
+
 -   forgot mysql root password
 
 create file  /tmp/reset.mysqld
