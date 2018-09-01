@@ -12,22 +12,23 @@ A complete open source Office-Automation solution.
 git clone https://github.com/saturn-xiv/lotus.git # or your repo
 cd lotus
 docker pull chonglou/lotus:latest
-docker run --name lotus -d -p 2222:22 -p 8080:8080 -p 3000:3000 -v "$(pwd)":/app chonglou/lotus:latest # FOR development, will WIPE data when stop it
+docker run --name lotus -d -p 2222:22 -p 8080:8080 -p 3000:3000 -v $HOME/.ssh:/home/deploy/.ssh -v "$(pwd)":/app chonglou/lotus:latest # FOR development, will WIPE data when stop it
 docker start lotus # next time
 ```
 
 -   login to docker
 
 ```bash
-ssh -p 2222 deploy@localhost # password is 123456
+ssh -p 2222 deploy@localhost
 > cd /app # is your work folder
 ```
 
 -   install dependencies packages
 
 ```bash
-# tools
-> cd tools &&
+> cd tools && bundle install
+> cd dashboard && npm install
+> npm install
 ```
 
 -   Database
