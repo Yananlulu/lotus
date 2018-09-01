@@ -10,6 +10,15 @@ $ mysql -u root -p
 > FLUSH PRIVILEGES;
 ```
 
+-   usage
+
+```bash
+SHOW DATABASES; # show databases
+USE db-name; # connect database
+SHOW TABLES; # show tables
+DESC table-name; # show table scheme
+```
+
 -   forgot mysql root password
 
 create file  /tmp/reset.mysqld
