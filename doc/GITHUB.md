@@ -2,6 +2,12 @@
 
 ### Usage
 
+- Generating a new SSH key
+
+```bash
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+```
+
 -   Fork
 
 Just click the fork button [lotus](https://github.com/saturn-xiv/lotus)
