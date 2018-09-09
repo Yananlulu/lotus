@@ -1,32 +1,13 @@
-FROM ubuntu:latest
+FROM base/archlinux:latest
 
-ENV DEBIAN_FRONTEND noninteractive
-
-# packages
-RUN apt-get update && apt-get -y install apt-utils apt-transport-https wget gnupg software-properties-common
-RUN add-apt-repository -y ppa:webupd8team/java
-RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | debconf-set-selections
-
-RUN wget http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
-RUN apt-key add rabbitmq-signing-key-public.asc
-RUN echo "deb https://dl.bintray.com/rabbitmq/debian/ bionic main" > /etc/apt/sources.list.d/rabbitmq.list
-
-RUN wget https://artifacts.elastic.co/GPG-KEY-elasticsearch
-RUN apt-key add GPG-KEY-elasticsearch
-RUN echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" > /etc/apt/sources.list.d/elasticsearch.list
-
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6B73A36E6026DFCA
-
-RUN apt-get update \
-  && apt-get -y upgrade \
-  && apt-get -y install build-essential pkg-config zsh net-tools psmisc inotify-tools logrotate \
-  zip unzip telnet curl git vim pwgen sudo \
-  libsodium-dev libpq-dev libmysqlclient-dev libsqlite3-dev\
-  libssl-dev libreadline-dev zlib1g-dev oracle-java8-installer\
-  postgresql mysql-server redis rabbitmq-server openssh-server nginx supervisor \
-  && apt-get -y install elasticsearch \
-  && apt-get -y autoremove \
-  && apt-get -y clean
+RUN pacman -Syu --noconfirm
+RUN pacman -S --noconfirm --needed zip unzip net-tools dnsutils wget vim pwgen inotify-tools  \
+  base-devel zsh git cmake \
+  mysql++ libpqxx libsodium \
+  rabbitmqadmin \
+  openssh redis percona-server postgresql rabbitmq elasticsearch nginx supervisor \
+  jdk10-openjdk jre10-openjdk-headless
+RUN pacman -Scc --noconfirm
 
 # deploy
 RUN useradd -s /bin/zsh -m deploy
@@ -49,21 +30,17 @@ RUN /rustup.sh
 USER root
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 RUN locale-gen
-RUN update-locale LANG=en_US.UTF-8
+RUN echo "LANG=en_US.UTF-8" > /etc/locale.conf
 
 RUN /usr/sbin/rabbitmq-plugins enable rabbitmq_management
-RUN chown rabbitmq:rabbitmq /var/lib/rabbitmq/.erlang.cookie
-RUN chmod 600 /var/lib/rabbitmq/.erlang.cookie
+RUN systemctl enable sshd
+RUN systemctl enable redis
 
-RUN mkdir /var/run/sshd
-
-RUN mkdir -p /var/run/mysqld
-RUN chown -R mysql:mysql /var/run/mysqld
-
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+# COPY supervisord.conf /etc/supervisord.conf
 
 EXPOSE 3000/tcp 8080/tcp 22/tcp 3306/tcp 5432/tcp 6379/tcp 9200/tcp 5672/tcp 15672/tcp
 
-VOLUME /app /home/deploy/.ssh
+VOLUME ["/sys/fs/cgroup" "/app" "/home/deploy/.ssh"]
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+CMD [ "/lib/systemd/systemd" ]
+# CMD ["/usr/sbin/supervisord", "-c", "/etc/supervisord.conf"]
