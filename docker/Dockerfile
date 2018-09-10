@@ -1,12 +1,15 @@
 FROM base/archlinux:latest
 
+RUN echo '2018-09-09' >> /version
+
 RUN pacman -Syu --noconfirm
-RUN pacman -S --noconfirm --needed zip unzip net-tools dnsutils wget vim pwgen inotify-tools  \
-  base-devel zsh git cmake \
-  mysql++ libpqxx libsodium \
-  rabbitmqadmin \
-  openssh redis percona-server postgresql rabbitmq elasticsearch nginx supervisor \
-  jdk10-openjdk jre10-openjdk-headless
+RUN pacman -S --noconfirm --needed zip unzip net-tools dnsutils wget vim pwgen inotify-tools  man\
+  base-devel zsh git cmake libsodium \
+  percona-server percona-server-clients mysql++ \
+  postgresql libpqxx \
+  rabbitmq rabbitmqadmin \
+  openssh redis nginx supervisor \
+  elasticsearch jdk10-openjdk jre10-openjdk-headless
 RUN pacman -Scc --noconfirm
 
 # deploy
@@ -32,15 +35,25 @@ RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 RUN locale-gen
 RUN echo "LANG=en_US.UTF-8" > /etc/locale.conf
 
-RUN /usr/sbin/rabbitmq-plugins enable rabbitmq_management
-RUN systemctl enable sshd
-RUN systemctl enable redis
+RUN ssh-keygen -A
 
-# COPY supervisord.conf /etc/supervisord.conf
+RUN su - postgres -c "initdb --locale en_US.UTF-8 -D '/var/lib/postgres/data'"
+RUN mkdir -p /run/postgresql
+RUN chown -R postgres:postgres /run/postgresql
+
+RUN mysqld --initialize-insecure --user=mysql
+
+RUN rabbitmq-plugins enable rabbitmq_management
+RUN chown rabbitmq:rabbitmq /var/lib/rabbitmq/.erlang.cookie
+RUN chmod 600 /var/lib/rabbitmq/.erlang.cookie
+RUN sed -i '/^NODENAME/ d' /etc/rabbitmq/rabbitmq-env.conf
+
+RUN chown -R elasticsearch:elasticsearch /etc/elasticsearch
+
+COPY supervisord.conf /etc/supervisord.conf
 
 EXPOSE 3000/tcp 8080/tcp 22/tcp 3306/tcp 5432/tcp 6379/tcp 9200/tcp 5672/tcp 15672/tcp
 
-VOLUME ["/sys/fs/cgroup" "/app" "/home/deploy/.ssh"]
+VOLUME ["/app", "/home/deploy/.ssh"]
 
-CMD [ "/lib/systemd/systemd" ]
-# CMD ["/usr/sbin/supervisord", "-c", "/etc/supervisord.conf"]
+CMD ["/usr/sbin/supervisord", "-c", "/etc/supervisord.conf"]
