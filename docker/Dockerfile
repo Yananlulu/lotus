@@ -54,6 +54,6 @@ COPY supervisord.conf /etc/supervisord.conf
 
 EXPOSE 3000/tcp 8080/tcp 22/tcp 3306/tcp 5432/tcp 6379/tcp 9200/tcp 5672/tcp 15672/tcp
 
-VOLUME ["/workspace", "/home/deploy/.ssh"]
+VOLUME ["/home/deploy"]
 
 CMD ["/usr/sbin/supervisord", "-c", "/etc/supervisord.conf"]
