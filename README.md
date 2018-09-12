@@ -8,6 +8,14 @@ A complete open source Office-Automation solution.
 
 -   Start docker
 
+```bash
+git clone https://github.com/saturn-xiv/lotus.git # or your repo
+cd lotus
+docker pull chonglou/lotus:latest
+docker run --name lotus -d -p 2222:22 -p 8080:8080 -p 3000:3000 -v $HOME/.ssh:/home/deploy/.ssh -v $HOME/workspace:/workspace chonglou/lotus:latest # FOR development, will WIPE data when stop it
+docker start lotus # next time
+```
+
 -   login to docker
 
 ```bash
