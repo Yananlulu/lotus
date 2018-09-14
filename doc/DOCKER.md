@@ -11,6 +11,7 @@ sudo gpasswd -a who-am-i docker
 ```
 
 ```bash
+docker system prune # clear, DON RUN IT ON SERVER
 docker image prune # remove all dangling images
 docker ps
 ```

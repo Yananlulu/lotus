@@ -1,16 +1,35 @@
-FROM base/archlinux:latest
+FROM ubuntu:latest
 
-RUN echo '2018-09-09' >> /version
+RUN echo '2018-09-14' >> /version
 
-RUN pacman -Syu --noconfirm
-RUN pacman -S --noconfirm --needed zip unzip net-tools dnsutils wget vim pwgen inotify-tools  man\
-  base-devel zsh git cmake libsodium \
-  percona-server percona-server-clients mysql++ \
-  postgresql libpqxx \
-  rabbitmq rabbitmqadmin \
-  openssh redis nginx supervisor \
-  elasticsearch jdk10-openjdk jre10-openjdk-headless
-RUN pacman -Scc --noconfirm
+ENV DEBIAN_FRONTEND noninteractive
+
+# packages
+RUN apt-get update
+RUN apt-get -y install apt-utils apt-transport-https wget gnupg software-properties-common
+RUN add-apt-repository -y ppa:webupd8team/java
+RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | debconf-set-selections
+
+RUN wget http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+RUN apt-key add rabbitmq-signing-key-public.asc
+RUN echo "deb https://dl.bintray.com/rabbitmq/debian/ bionic main" > /etc/apt/sources.list.d/rabbitmq.list
+
+RUN wget https://artifacts.elastic.co/GPG-KEY-elasticsearch
+RUN apt-key add GPG-KEY-elasticsearch
+RUN echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" > /etc/apt/sources.list.d/elasticsearch.list
+
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6B73A36E6026DFCA
+
+RUN apt-get update
+RUN apt-get -y upgrade
+RUN apt-get -y install build-essential pkg-config zsh net-tools lsof iputils-ping dnsutils psmisc inotify-tools logrotate \
+  zip unzip bsdtar telnet curl git vim pwgen sudo \
+  libsodium-dev libpq-dev libmysqlclient-dev libsqlite3-dev\
+  libssl-dev libreadline-dev zlib1g-dev oracle-java8-installer\
+  postgresql mariadb-server redis rabbitmq-server openssh-server nginx supervisor
+RUN apt-get -y install elasticsearch
+RUN apt-get -y autoremove
+RUN apt-get -y clean
 
 # deploy
 RUN useradd -s /bin/zsh -m deploy
@@ -28,34 +47,29 @@ ADD rbenv.sh /rbenv.sh
 RUN /rbenv.sh
 ADD rustup.sh /rustup.sh
 RUN /rustup.sh
+ADD android.sh /android.sh
+RUN /android.sh
 
 # setup
 USER root
+
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 RUN locale-gen
-RUN echo "LANG=en_US.UTF-8" > /etc/locale.conf
+RUN update-locale LANG=en_US.UTF-8
 
-RUN ssh-keygen -A
-
-RUN su - postgres -c "initdb --locale en_US.UTF-8 -D '/var/lib/postgres/data'"
-RUN mkdir -p /run/postgresql
-RUN chown -R postgres:postgres /run/postgresql
-
-RUN mysqld --initialize-insecure --user=mysql
-
-RUN rabbitmq-plugins enable rabbitmq_management
+RUN /usr/sbin/rabbitmq-plugins enable rabbitmq_management
 RUN chown rabbitmq:rabbitmq /var/lib/rabbitmq/.erlang.cookie
 RUN chmod 600 /var/lib/rabbitmq/.erlang.cookie
-RUN sed -i '/^NODENAME/ d' /etc/rabbitmq/rabbitmq-env.conf
 
-RUN chown -R elasticsearch:elasticsearch /etc/elasticsearch
+RUN mkdir /var/run/sshd
 
-RUN echo 'EDITOR=vim' >> /etc/environment
+RUN mkdir -p /var/run/mysqld
+RUN chown -R mysql:mysql /var/run/mysqld
 
 COPY supervisord.conf /etc/supervisord.conf
 
-EXPOSE 3000/tcp 8080/tcp 22/tcp 3306/tcp 5432/tcp 6379/tcp 9200/tcp 5672/tcp 15672/tcp
+EXPOSE 3000/tcp 8080/tcp 5901/tcp 22/tcp 3306/tcp 5432/tcp 6379/tcp 9200/tcp 5672/tcp 15672/tcp
 
-VOLUME ["/home/deploy/.ssh", "/workspace"]
+VOLUME /workspace /home/deploy/.ssh
 
-CMD ["/usr/sbin/supervisord", "-c", "/etc/supervisord.conf"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
