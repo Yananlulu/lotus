@@ -47,6 +47,7 @@ ADD rbenv.sh /rbenv.sh
 RUN /rbenv.sh
 ADD rustup.sh /rustup.sh
 RUN /rustup.sh
+
 ADD android.sh /android.sh
 RUN /android.sh
 
@@ -56,6 +57,7 @@ USER root
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 RUN locale-gen
 RUN update-locale LANG=en_US.UTF-8
+RUN update-alternatives --set editor /usr/bin/vim.basic
 
 RUN /usr/sbin/rabbitmq-plugins enable rabbitmq_management
 RUN chown rabbitmq:rabbitmq /var/lib/rabbitmq/.erlang.cookie
@@ -68,7 +70,7 @@ RUN chown -R mysql:mysql /var/run/mysqld
 
 COPY supervisord.conf /etc/supervisord.conf
 
-EXPOSE 3000/tcp 8080/tcp 5901/tcp 22/tcp 3306/tcp 5432/tcp 6379/tcp 9200/tcp 5672/tcp 15672/tcp
+EXPOSE 3000/tcp 8080/tcp 22/tcp 3306/tcp 5432/tcp 6379/tcp 9200/tcp 5672/tcp 15672/tcp
 
 VOLUME /workspace /home/deploy/.ssh
 
