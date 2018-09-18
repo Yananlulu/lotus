@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-RUN echo '2018-09-14' >> /version
+RUN echo '2018-09-18' >> /version
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -24,8 +24,8 @@ RUN apt-get update
 RUN apt-get -y upgrade
 RUN apt-get -y install build-essential pkg-config zsh net-tools lsof iputils-ping dnsutils psmisc inotify-tools logrotate \
   zip unzip bsdtar telnet curl git vim pwgen sudo \
-  libsodium-dev libpq-dev libmysqlclient-dev libsqlite3-dev\
-  libssl-dev libreadline-dev zlib1g-dev oracle-java8-installer\
+  libsodium-dev libpq-dev libmysqlclient-dev libsqlite3-dev libudev-dev \
+  libssl-dev libreadline-dev zlib1g-dev oracle-java8-installer \
   postgresql mariadb-server redis rabbitmq-server openssh-server nginx supervisor
 RUN apt-get -y install elasticsearch
 RUN apt-get -y autoremove
@@ -70,7 +70,7 @@ RUN chown -R mysql:mysql /var/run/mysqld
 
 COPY supervisord.conf /etc/supervisord.conf
 
-EXPOSE 3000/tcp 8080/tcp 22/tcp 3306/tcp 5432/tcp 6379/tcp 9200/tcp 5672/tcp 15672/tcp
+EXPOSE 3000/tcp 8080/tcp 22/tcp 3306/tcp 5432/tcp 6379/tcp 9200/tcp 5672/tcp 15672/tcp 10000-11000/tcp
 
 VOLUME /workspace /home/deploy/.ssh
 
