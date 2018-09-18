@@ -5,7 +5,7 @@
 ```bash
 docker build -t lotus .
 # test
-docker run --rm -it -p 2222:22 -p 8080:8080 -p 3000:3000 -p 10000-11000:10000-11000 -v $HOME/.ssh:/home/deploy/.ssh -v $HOME/workspace:/workspace lotus:latest
+docker run --rm -it -p 2222:22 -p 8080:8080 -p 3000:3000 -v $HOME/.ssh:/home/deploy/.ssh -v $HOME/workspace:/workspace lotus:latest
 ```
 
 ### How to ssh
