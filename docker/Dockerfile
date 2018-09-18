@@ -22,7 +22,8 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6B73A36E6026DFCA
 
 RUN apt-get update
 RUN apt-get -y upgrade
-RUN apt-get -y install build-essential pkg-config zsh net-tools lsof iputils-ping dnsutils psmisc inotify-tools logrotate \
+RUN apt-get -y install build-essential clang cmake pkg-config zsh \
+  net-tools lsof iputils-ping dnsutils psmisc inotify-tools logrotate \
   zip unzip bsdtar telnet curl git vim pwgen sudo \
   libsodium-dev libpq-dev libmysqlclient-dev libsqlite3-dev libudev-dev \
   libssl-dev libreadline-dev zlib1g-dev oracle-java8-installer \
