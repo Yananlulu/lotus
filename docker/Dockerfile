@@ -69,6 +69,9 @@ RUN mkdir /var/run/sshd
 RUN mkdir -p /var/run/mysqld
 RUN chown -R mysql:mysql /var/run/mysqld
 
+RUN mkdir -p /var/run/postgresql/10-main.pg_stat_tmp
+RUN chown -R postgres:postgres /var/run/postgresql
+
 COPY supervisord.conf /etc/supervisord.conf
 
 EXPOSE 3000/tcp 8080/tcp 22/tcp 3306/tcp 5432/tcp 6379/tcp 9200/tcp 5672/tcp 15672/tcp 10000-11000/tcp
