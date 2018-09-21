@@ -71,6 +71,9 @@ RUN chown -R mysql:mysql /var/run/mysqld
 
 RUN mkdir -p /var/run/postgresql/10-main.pg_stat_tmp
 RUN chown -R postgres:postgres /var/run/postgresql
+RUN echo "local   all             all                                     trust" > /etc/postgresql/10/main/pg_hba.conf
+RUN echo "host    all             all             127.0.0.1/32            trust" >> /etc/postgresql/10/main/pg_hba.conf
+RUN echo "host    all             all             ::1/128                 trust" >> /etc/postgresql/10/main/pg_hba.conf
 
 COPY supervisord.conf /etc/supervisord.conf
 
