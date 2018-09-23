@@ -2,13 +2,11 @@ production:
   database: lotus
   pool:     5
   host:     127.0.0.1
-  user:     www
-  password: 123456
 
-  adapter:  postgresql
+  # adapter: postgresql
   # username: postgres
-  encoding: unicode
+  # encoding: unicode
 
-  # adapter: mysql2
-  # encoding: utf8
-  # username: root
+  adapter:  mysql2
+  encoding: utf8
+  username: root
