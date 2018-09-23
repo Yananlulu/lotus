@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-RUN echo '2018-09-18' >> /version
+RUN echo '2018-09-21' >> /version
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -20,15 +20,21 @@ RUN echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" > /etc/
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6B73A36E6026DFCA
 
-RUN apt-get update
+RUN echo "deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports/ bionic main multiverse restricted universe" > /etc/apt/sources.list.d/armhf.list
+RUN echo "deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports/ bionic-updates main multiverse restricted universe" >> /etc/apt/sources.list.d/armhf.list
+RUN dpkg --add-architecture armhf
+
+RUN apt-get --ignore-missing update || true
 RUN apt-get -y upgrade
-RUN apt-get -y install build-essential clang cmake pkg-config zsh \
+RUN apt-get -y install build-essential clang cmake pkg-config meson intltool libtool gawk texinfo bison zsh \
   net-tools lsof iputils-ping dnsutils psmisc inotify-tools logrotate \
-  zip unzip bsdtar telnet curl git vim pwgen sudo \
+  zip unzip bsdtar telnet curl git vim pwgen sudo gperf \
   libsodium-dev libpq-dev libmysqlclient-dev libsqlite3-dev libudev-dev \
   libssl-dev libreadline-dev zlib1g-dev oracle-java8-installer \
+  gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf binutils-multiarch \
   postgresql mariadb-server redis rabbitmq-server openssh-server nginx supervisor
 RUN apt-get -y install elasticsearch
+RUN apt-get -y install libssl-dev:armhf libpq-dev:armhf libudev-dev:armhf libsodium-dev:armhf
 RUN apt-get -y autoremove
 RUN apt-get -y clean
 

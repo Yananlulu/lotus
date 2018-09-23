@@ -3,7 +3,7 @@
 export ANDROID_SDK_HOME=$HOME/local/android-sdk
 export ANDROID_SDK_VERSION=4333796
 
-mkdir $HOME/downloads
+mkdir -p $HOME/downloads
 cd $HOME/downloads
 wget https://dl.google.com/android/repository/sdk-tools-linux-$ANDROID_SDK_VERSION.zip
 mkdir -p $ANDROID_SDK_HOME
