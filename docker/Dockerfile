@@ -34,7 +34,7 @@ RUN apt-get -y install build-essential clang cmake pkg-config meson intltool lib
   gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf binutils-multiarch \
   postgresql mariadb-server redis rabbitmq-server openssh-server nginx supervisor
 RUN apt-get -y install elasticsearch
-RUN apt-get -y install libssl-dev:armhf libpq-dev:armhf libudev-dev:armhf libsodium-dev:armhf
+RUN apt-get -y install libssl-dev:armhf libpq-dev:armhf libsqlite3-dev:armhf libudev-dev:armhf libsodium-dev:armhf
 RUN apt-get -y autoremove
 RUN apt-get -y clean
 
