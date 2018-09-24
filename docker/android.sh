@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+set -e
+
 export ANDROID_SDK_HOME=$HOME/local/android-sdk
 export ANDROID_SDK_VERSION=4333796
 

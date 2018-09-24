@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+set -e
+
 curl https://sh.rustup.rs -sSf | sh -s -- -y
 echo 'source $HOME/.cargo/env' >> $HOME/.zshrc
 
