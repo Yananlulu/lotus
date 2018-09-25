@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-RUN echo '2018-09-21' >> /version
+RUN echo '2018-09-23' >> /version
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -35,7 +35,7 @@ RUN apt-get -y install build-essential clang cmake pkg-config meson intltool lib
   postgresql mariadb-server redis rabbitmq-server openssh-server nginx supervisor
 RUN apt-get -y install elasticsearch
 RUN apt-get -y install libssl-dev:armhf libpq-dev:armhf libsqlite3-dev:armhf libudev-dev:armhf libsodium-dev:armhf
-RUN apt-get -y autoremove
+# RUN apt-get -y autoremove
 RUN apt-get -y clean
 
 # deploy
