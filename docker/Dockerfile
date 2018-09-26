@@ -41,18 +41,18 @@ USER deploy
 
 ADD oh-my-zsh.sh /oh-my-zsh.sh
 RUN /oh-my-zsh.sh
+ADD android.sh /android.sh
+RUN /android.sh
+ADD buildroot.sh /buildroot.sh
+RUN /buildroot.sh
 ADD nvm.sh /nvm.sh
 RUN /nvm.sh
 ADD sdkman.sh /sdkman.sh
 RUN /sdkman.sh
 ADD rbenv.sh /rbenv.sh
 RUN /rbenv.sh
-ADD android.sh /android.sh
-RUN /android.sh
 ADD rustup.sh /rustup.sh
 RUN /rustup.sh
-ADD buildroot.sh /buildroot.sh
-RUN /buildroot.sh
 
 # setup
 USER root
