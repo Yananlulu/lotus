@@ -12,5 +12,5 @@ cargo install --force diesel_cli
 # https://github.com/rust-lang/rust/issues/50504#issuecomment-410550021
 echo 'export RUSTFLAGS="-Aproc-macro-derive-resolution-fallback"' >> $HOME/.zshrc
 
-# for raspberry-pi
+# raspberry pi
 rustup target add armv7-unknown-linux-gnueabihf
