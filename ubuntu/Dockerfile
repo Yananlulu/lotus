@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-RUN echo '2018-09-26' >> /version
+RUN echo '2018-09-28' >> /version
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -22,13 +22,13 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6B73A36E6026DFCA
 
 RUN apt-get update
 RUN apt-get -y upgrade
-RUN apt-get -y install build-essential clang cmake bc pkg-config cpio meson intltool libtool gawk texinfo bison zsh \
+RUN apt-get -y install build-essential clang cmake bc pkg-config dh-autoreconf cpio meson intltool libtool gawk texinfo bison zsh \
   libncurses5-dev \
   net-tools lsof iputils-ping dnsutils psmisc inotify-tools logrotate \
   zip unzip bsdtar telnet curl git vim pwgen sudo gperf \
-  libsodium-dev libpq-dev libmysqlclient-dev libsqlite3-dev libudev-dev \
+  libsodium-dev libpq-dev libmysqlclient-dev libsqlite3-dev libudev-dev liboping-dev dh-autoreconf\
   libssl-dev libreadline-dev zlib1g-dev oracle-java8-installer \
-  postgresql mariadb-server redis rabbitmq-server openssh-server nginx supervisor
+  sqlite3 postgresql mariadb-server redis rabbitmq-server openssh-server nginx supervisor
 RUN apt-get -y install elasticsearch
 RUN apt-get -y autoremove
 RUN apt-get -y clean
