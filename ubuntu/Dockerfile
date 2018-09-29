@@ -12,7 +12,7 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
 
 RUN wget http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
 RUN apt-key add rabbitmq-signing-key-public.asc
-RUN echo "deb https://dl.bintray.com/rabbitmq/debian/ bionic main" > /etc/apt/sources.list.d/rabbitmq.list
+RUN echo "deb https://dl.bintray.com/rabbitmq/debian bionic main" > /etc/apt/sources.list.d/rabbitmq.list
 
 RUN wget https://artifacts.elastic.co/GPG-KEY-elasticsearch
 RUN apt-key add GPG-KEY-elasticsearch
