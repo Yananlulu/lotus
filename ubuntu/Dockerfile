@@ -26,7 +26,7 @@ RUN apt-get -y install build-essential clang cmake bc pkg-config dh-autoreconf c
   libncurses5-dev \
   net-tools lsof iputils-ping dnsutils psmisc inotify-tools logrotate \
   zip unzip bsdtar telnet curl git vim pwgen sudo gperf \
-  libsodium-dev libpq-dev libmysqlclient-dev libsqlite3-dev libudev-dev liboping-dev dh-autoreconf\
+  libsodium-dev libpq-dev libmysqlclient-dev libsqlite3-dev libudev-dev liboping-dev \
   libssl-dev libreadline-dev zlib1g-dev oracle-java8-installer \
   sqlite3 postgresql mariadb-server redis rabbitmq-server openssh-server nginx supervisor
 RUN apt-get -y install elasticsearch
