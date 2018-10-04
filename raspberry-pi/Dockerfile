@@ -9,13 +9,13 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # packages
 RUN apt-get update
-RUN apt-get -y install apt-utils apt-transport-https wget gnupg software-properties-common
+RUN apt-get -y install curl apt-utils apt-transport-https wget gnupg software-properties-common
 RUN dpkg --add-architecture armhf
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get update
 RUN apt-get -y upgrade
 RUN apt-get -y install build-essential dh-autoreconf locales pkg-config \
-  curl git vim nodejs python3-pip \
+  git vim nodejs python3-pip \
   libsqlite3-dev \
   gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf binutils-multiarch \
   libsodium-dev:armhf libsqlite3-dev:armhf libudev-dev:armhf libssl-dev:armhf
