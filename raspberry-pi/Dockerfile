@@ -34,6 +34,8 @@ RUN /bin/bash -c "source $HOME/.cargo/env \
   && rustup target add armv7-unknown-linux-gnueabihf"
 # https://github.com/rust-lang/rust/issues/50504#issuecomment-410550021
 RUN echo 'export RUSTFLAGS="-Aproc-macro-derive-resolution-fallback"' >> $HOME/.bashrc
+RUN /bin/bash -c "source $HOME/.cargo/env \
+  && cargo install --force diesel_cli"
 
 VOLUME /workspace
 WORKDIR /workspace
