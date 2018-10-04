@@ -16,6 +16,7 @@ RUN apt-get update
 RUN apt-get -y upgrade
 RUN apt-get -y install build-essential dh-autoreconf locales pkg-config \
   curl git vim nodejs \
+  libsqlite3-dev \
   gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf binutils-multiarch \
   libsodium-dev:armhf libsqlite3-dev:armhf libudev-dev:armhf libssl-dev:armhf
 RUN apt-get -y autoremove
@@ -35,7 +36,7 @@ RUN /bin/bash -c "source $HOME/.cargo/env \
 # https://github.com/rust-lang/rust/issues/50504#issuecomment-410550021
 RUN echo 'export RUSTFLAGS="-Aproc-macro-derive-resolution-fallback"' >> $HOME/.bashrc
 RUN /bin/bash -c "source $HOME/.cargo/env \
-  && cargo install --force diesel_cli"
+  && cargo install --force diesel_cli --no-default-features --features sqlite"
 
 VOLUME /workspace
 WORKDIR /workspace
