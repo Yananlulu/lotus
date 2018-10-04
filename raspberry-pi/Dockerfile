@@ -11,10 +11,11 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update
 RUN apt-get -y install apt-utils apt-transport-https wget gnupg software-properties-common
 RUN dpkg --add-architecture armhf
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get update
 RUN apt-get -y upgrade
 RUN apt-get -y install build-essential dh-autoreconf locales pkg-config \
-  curl git vim \
+  curl git vim nodejs \
   gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf binutils-multiarch \
   libsodium-dev:armhf libsqlite3-dev:armhf libudev-dev:armhf libssl-dev:armhf
 RUN apt-get -y autoremove
