@@ -15,12 +15,14 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get update
 RUN apt-get -y upgrade
 RUN apt-get -y install build-essential dh-autoreconf locales pkg-config \
-  curl git vim nodejs \
+  curl git vim nodejs python3-pip \
   libsqlite3-dev \
   gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf binutils-multiarch \
   libsodium-dev:armhf libsqlite3-dev:armhf libudev-dev:armhf libssl-dev:armhf
 RUN apt-get -y autoremove
 RUN apt-get -y clean
+
+RUN pip3 install fabric
 
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 RUN locale-gen
