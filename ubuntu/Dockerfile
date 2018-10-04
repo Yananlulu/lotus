@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-RUN echo '2018-09-28' >> /version
+RUN echo '2018-10-01' >> /version
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -13,16 +13,16 @@ RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true
 RUN wget http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
 RUN apt-key add rabbitmq-signing-key-public.asc
 RUN echo "deb https://dl.bintray.com/rabbitmq/debian bionic main" > /etc/apt/sources.list.d/rabbitmq.list
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6B73A36E6026DFCA
 
 RUN wget https://artifacts.elastic.co/GPG-KEY-elasticsearch
 RUN apt-key add GPG-KEY-elasticsearch
 RUN echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" > /etc/apt/sources.list.d/elasticsearch.list
 
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6B73A36E6026DFCA
-
 RUN apt-get update
 RUN apt-get -y upgrade
-RUN apt-get -y install build-essential clang cmake bc pkg-config dh-autoreconf cpio meson intltool libtool gawk texinfo bison zsh \
+RUN apt-get -y install build-essential clang cmake pkg-config dh-autoreconf dh-make checkinstall \
+  cpio meson intltool libtool gawk texinfo bison bc zsh moreutils \
   libncurses5-dev \
   net-tools lsof iputils-ping dnsutils psmisc inotify-tools logrotate \
   zip unzip bsdtar telnet curl git vim pwgen sudo gperf \
