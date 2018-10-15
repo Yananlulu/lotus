@@ -79,6 +79,7 @@ RUN chown -R postgres:postgres /var/run/postgresql
 RUN echo "local   all             all                                     trust" > /etc/postgresql/10/main/pg_hba.conf
 RUN echo "host    all             all             127.0.0.1/32            trust" >> /etc/postgresql/10/main/pg_hba.conf
 RUN echo "host    all             all             ::1/128                 trust" >> /etc/postgresql/10/main/pg_hba.conf
+RUN echo "log_statement = 'all'" >> /etc/postgresql/10/main/postgresql.conf
 
 COPY supervisord.conf /etc/supervisord.conf
 
