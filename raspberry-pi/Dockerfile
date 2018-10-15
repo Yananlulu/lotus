@@ -3,7 +3,7 @@
 
 FROM debian:stretch
 
-RUN echo '2018-10-03' >> /version
+RUN echo '2018-10-14' >> /version
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -16,7 +16,7 @@ RUN apt-get update
 RUN apt-get -y upgrade
 RUN apt-get -y install build-essential dh-autoreconf locales pkg-config \
   git vim nodejs python3-pip \
-  libsqlite3-dev \
+  libsqlite3-dev libzmq3-dev \
   gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf binutils-multiarch \
   libsodium-dev:armhf libsqlite3-dev:armhf libudev-dev:armhf libssl-dev:armhf
 RUN apt-get -y autoremove
