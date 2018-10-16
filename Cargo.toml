@@ -68,7 +68,7 @@ robots_txt = "0.5"
 sitemap = "0.2"
 rss = "1.5"
 lapin-futures = "0.13"
-frank_jwt = "*"
+# frank_jwt = "*"
 sodiumoxide = "*"
 mustache = "*"
 
@@ -93,6 +93,9 @@ features = ["v4"]
 version = "*"
 default-features = false
 features = ["json", "uuid", "tera_templates"]
+
+[dependencies.frank_jwt]
+git = "https://github.com/GildedHonour/frank_jwt.git"
 
 [dependencies.rocket_cors]
 git = "https://github.com/lawliet89/rocket_cors"

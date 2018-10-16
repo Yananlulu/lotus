@@ -13,7 +13,7 @@ source $HOME/.cargo/env
 export RUSTFLAGS="-Aproc-macro-derive-resolution-fallback" # https://github.com/diesel-rs/diesel/issues/1785
 ```
 
--   Close and reopen your terminal to start using
+-   Re-login at first
 
 -   Install rust
 

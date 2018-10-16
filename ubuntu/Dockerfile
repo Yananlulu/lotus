@@ -83,6 +83,8 @@ RUN echo "log_statement = 'all'" >> /etc/postgresql/10/main/postgresql.conf
 
 COPY supervisord.conf /etc/supervisord.conf
 
+RUN echo "deploy:hi" | chpasswd
+
 EXPOSE 3000/tcp 8080/tcp 22/tcp 3306/tcp 5432/tcp 6379/tcp 9200/tcp 5672/tcp 15672/tcp 10000-11000/tcp
 
 VOLUME /workspace /home/deploy/.ssh
