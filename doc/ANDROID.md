@@ -12,6 +12,12 @@ First, you must enable the developer options:
 
 Open Developer options, and then scroll down to find and enable USB debugging.
 
+### See ip address
+
+- Open the Settings app.
+- Scroll to the bottom and select About phone.
+- Tap Status
+
 ### Enable LAN debugging
 
 ```bash
