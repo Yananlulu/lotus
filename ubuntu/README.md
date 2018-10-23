@@ -19,9 +19,8 @@ cat id_rsa.pub >> authorized_keys
 ### If your uid isn't `1000`
 
 ```bash
-usermod -u xxxx deploy
-groupmod -g xxxx deploy
-chown -R deploy:deploy /home/deploy
+usermod -u xxxx deploy # xxxx is your uid
+groupmod -g xxxx deploy # xxxx is your gid
 ```
 
 ## Documents
