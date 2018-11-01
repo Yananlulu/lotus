@@ -75,6 +75,7 @@ openssl rand -base64 32
 -   [For gmail smtp](http://stackoverflow.com/questions/20337040/gmail-smtp-debug-error-please-log-in-via-your-web-browser)
 -   [favicon.ico](http://icoconvert.com/)
 -   [smver](http://semver.org/)
+-   [keep a changelog](https://keepachangelog.com/en/1.0.0/)
 -   [banner.txt](http://patorjk.com/software/taag/)
 -   [msmtp](https://wiki.archlinux.org/index.php/msmtp)
 -   [Are we (I)DE yet?](https://areweideyet.com/)
