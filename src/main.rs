@@ -1,18 +1,10 @@
-// extern crate log4rs;
-extern crate env_logger;
 extern crate lotus;
+extern crate pug;
 
-#[macro_use]
-extern crate log;
+use pug::log::*;
 
 fn main() {
-    let run = || {
-        // log4rs::init_file("log4rs.yml", Default::default())?;
-        env_logger::init();
-        lotus::app::main()
-    };
-
-    if let Err(e) = run() {
+    if let Err(e) = lotus::app::run() {
         error!("{:?}", e);
     }
 }

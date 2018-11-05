@@ -1,3 +1,4 @@
 [submodule "third/ueditor"]
 	path = third/ueditor
 	url = https://github.com/fex-team/ueditor.git
+	ignore = dirty
