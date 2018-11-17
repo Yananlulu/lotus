@@ -20,22 +20,24 @@ pub fn run() -> Result<()> {
     )
     .get_matches();
 
-    if let Some(_) = matches.subcommand_matches("generate:config") {
-        pug::app::generate::config::run(cfg)?;
+    if let Some(_) = matches.subcommand_matches(pug::app::generate::config::NAME) {
+        pug::app::generate::config::run::<&'static str, pug::env::Config>(cfg)?;
         return Ok(());
     }
 
-    let cfg = pug::env::Config::new(cfg)?;
-    if let Some(_) = matches.subcommand_matches("generate:nginx") {
+    info!("load configuration from {}", cfg);
+    let cfg: pug::env::Config = pug::parser::toml(cfg)?;
+    if let Some(matches) = matches.subcommand_matches(pug::app::generate::nginx::COMMAND_NAME) {
+        let name = matches
+            .value_of(pug::app::generate::nginx::ARG_SERVER_NAME)
+            .unwrap();
         pug::app::generate::nginx::run(
-            "aaa".to_string(),
+            name.to_string(),
             cfg.http.port,
-            matches.is_present(pug::app::generate::nginx::SSL),
+            matches.is_present(pug::app::generate::nginx::ARG_HTTPS),
         )?;
         return Ok(());
     }
 
-    let app = cfg.rocket()?;
-    app.launch();
     Ok(())
 }

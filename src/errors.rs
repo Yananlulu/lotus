@@ -1,5 +1,3 @@
-use pug::error_chain::*;
-
 error_chain!{
     foreign_links {
         Pug(pug::errors::Error);
