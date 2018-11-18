@@ -18,6 +18,7 @@ pub fn run() -> Result<()> {
         SubCommand::with_name(pug::app::generate::config::NAME)
             .about(&*pug::app::generate::config::help(cfg)),
     )
+    .subcommand(pug::app::generate::systemd::command())
     .get_matches();
 
     if let Some(_) = matches.subcommand_matches(pug::app::generate::config::NAME) {
@@ -36,6 +37,13 @@ pub fn run() -> Result<()> {
             cfg.http.port,
             matches.is_present(pug::app::generate::nginx::ARG_HTTPS),
         )?;
+        return Ok(());
+    }
+    if let Some(matches) = matches.subcommand_matches(pug::app::generate::systemd::COMMAND_NAME) {
+        let name = matches
+            .value_of(pug::app::generate::systemd::ARG_SERVICE_NAME)
+            .unwrap();
+        pug::app::generate::systemd::run(name.to_string(), env::DESCRIPTION.to_string())?;
         return Ok(());
     }
 
