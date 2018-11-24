@@ -13,8 +13,8 @@ lto = true
 [dependencies]
 
 [dependencies.pug]
-# path = "../pug"
-git = "https://github.com/saturn-xiv/pug.git"
+path = "../pug"
+# git = "https://github.com/saturn-xiv/pug.git"
 default-features = false
 features = ["postgresql", "redis", "rabbitmq", "sodium"]
 
