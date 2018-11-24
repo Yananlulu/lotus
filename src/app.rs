@@ -4,10 +4,9 @@ use super::{env, errors::Result};
 
 pub fn run() -> Result<()> {
     let cfg = "config.toml";
-    let version = env::version();
     let matches = pug::app::new(
         env::NAME,
-        &version[..],
+        env::VERSION,
         Some(env::AUTHORS),
         Some(env::DESCRIPTION),
         Some(env::BANNER),

@@ -1051,6 +1051,7 @@ dependencies = [
 name = "lotus"
 version = "0.1.0"
 dependencies = [
+ "askama 0.7.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "pug 0.1.0 (git+https://github.com/saturn-xiv/pug.git)",
 ]
 
@@ -1452,7 +1453,7 @@ dependencies = [
 [[package]]
 name = "pug"
 version = "0.1.0"
-source = "git+https://github.com/saturn-xiv/pug.git#6191d76cc980f64182a872746d1762db69db2b23"
+source = "git+https://github.com/saturn-xiv/pug.git#0bf3c71be9c0fdb7bada9a4c1f71cb13f765295e"
 dependencies = [
  "actix 0.7.7 (registry+https://github.com/rust-lang/crates.io-index)",
  "actix-web 0.7.14 (registry+https://github.com/rust-lang/crates.io-index)",
