@@ -12,13 +12,14 @@ pub fn run() -> Result<()> {
         Some(env::DESCRIPTION),
         Some(env::BANNER),
         Some(env::HOMEPAGE),
-    )
-    .subcommand(pug::app::generate::nginx::command())
+    ).subcommand(pug::app::generate::nginx::command())
     .subcommand(
         SubCommand::with_name(pug::app::generate::config::NAME)
             .about(&*pug::app::generate::config::help(cfg)),
-    )
-    .subcommand(pug::app::generate::systemd::command())
+    ).subcommand(pug::app::generate::systemd::command())
+    .subcommand(pug::app::database::migrate::command())
+    .subcommand(pug::app::database::rollback::command())
+    .subcommand(pug::app::database::status::command())
     .get_matches();
 
     if let Some(_) = matches.subcommand_matches(pug::app::generate::config::NAME) {
@@ -47,5 +48,25 @@ pub fn run() -> Result<()> {
         return Ok(());
     }
 
+    info!("open database");
+    let db = cfg.database()?;
+    if let Some(_) = matches.subcommand_matches(pug::app::database::migrate::COMMAND_NAME) {
+        let db = db.get()?;
+        pug::app::database::migrate::run(
+            &db,
+            &vec![pug::i18n::locales::migration(), pug::settings::migration()],
+        )?;
+        return Ok(());
+    }
+    if let Some(_) = matches.subcommand_matches(pug::app::database::rollback::COMMAND_NAME) {
+        let db = db.get()?;
+        pug::app::database::rollback::run(&db)?;
+        return Ok(());
+    }
+    if let Some(_) = matches.subcommand_matches(pug::app::database::status::COMMAND_NAME) {
+        let db = db.get()?;
+        pug::app::database::status::run(&db)?;
+        return Ok(());
+    }
     Ok(())
 }

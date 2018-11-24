@@ -1051,7 +1051,7 @@ dependencies = [
 name = "lotus"
 version = "0.1.0"
 dependencies = [
- "pug 0.1.0",
+ "pug 0.1.0 (git+https://github.com/saturn-xiv/pug.git)",
 ]
 
 [[package]]
@@ -1452,6 +1452,7 @@ dependencies = [
 [[package]]
 name = "pug"
 version = "0.1.0"
+source = "git+https://github.com/saturn-xiv/pug.git#6191d76cc980f64182a872746d1762db69db2b23"
 dependencies = [
  "actix 0.7.7 (registry+https://github.com/rust-lang/crates.io-index)",
  "actix-web 0.7.14 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -2794,6 +2795,7 @@ dependencies = [
 "checksum pq-sys 0.4.6 (registry+https://github.com/rust-lang/crates.io-index)" = "6ac25eee5a0582f45a67e837e350d784e7003bd29a5f460796772061ca49ffda"
 "checksum proc-macro2 0.3.8 (registry+https://github.com/rust-lang/crates.io-index)" = "1b06e2f335f48d24442b35a19df506a835fb3547bc3c06ef27340da9acf5cae7"
 "checksum proc-macro2 0.4.24 (registry+https://github.com/rust-lang/crates.io-index)" = "77619697826f31a02ae974457af0b29b723e5619e113e9397b8b82c6bd253f09"
+"checksum pug 0.1.0 (git+https://github.com/saturn-xiv/pug.git)" = "<none>"
 "checksum quick-error 1.2.2 (registry+https://github.com/rust-lang/crates.io-index)" = "9274b940887ce9addde99c4eee6b5c44cc494b182b97e73dc8ffdcb3397fd3f0"
 "checksum quote 0.5.2 (registry+https://github.com/rust-lang/crates.io-index)" = "9949cfe66888ffe1d53e6ec9d9f3b70714083854be20fd5e271b232a017401e8"
 "checksum quote 0.6.10 (registry+https://github.com/rust-lang/crates.io-index)" = "53fa22a1994bd0f9372d7a816207d8a2677ad0325b073f5c5332760f0fb62b5c"
