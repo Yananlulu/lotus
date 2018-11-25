@@ -1,5 +1,6 @@
 export default {
   base: '/my',
+  hash: true,
   plugins: [
     [
       'umi-plugin-react', {

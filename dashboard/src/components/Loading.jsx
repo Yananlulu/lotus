@@ -1,3 +1,5 @@
+import {Spin} from 'antd';
+
 export default() => {
-  return (<div>loading</div>);
+  return (<Spin size="large"/>);
 };
