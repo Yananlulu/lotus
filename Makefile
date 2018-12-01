@@ -1,22 +1,22 @@
 dist=dist
 
-build: api www
+build: api ds
 	cd $(dist) && tar cfJ ../$(dist).tar.xz *
 
 api:
 	GIT_HEAD=`git rev-parse --short HEAD` BUILD_TIME=`date -R` cargo build --release
 	strip -s target/release/lotus
 	mkdir -p $(dist)/public $(dist)/tmp
-	-cp -r target/release/lotus locales tools templates themes log4rs.yml package.json package-lock.json LICENSE README.md $(dist)/
+	-cp -r target/release/lotus log4rs.yml package.json package-lock.json LICENSE README.md $(dist)/
 	-cp -r third/ueditor/dist $(dist)/public/ueditor
 
-www:
-	cd dashboard && npm run build
-	-cp -r dashboard/build $(dist)/dashboard
+ds:
+	cd dashboard && umi build
+	-cp -r dashboard/dist $(dist)/dashboard
 
 clean:
 	cargo clean
-	-rm -r $(dist) $(dist).tar.xz dashboard/build
+	-rm -r $(dist) $(dist).tar.xz dashboard/dist
 
 init:
 	git submodule update

@@ -4,6 +4,7 @@ extern crate pug;
 pub mod app;
 pub mod env;
 pub mod errors;
+pub mod plugins;
 
 // #![feature(proc_macro_hygiene, decl_macro)]
 // #![recursion_limit = "1024"]

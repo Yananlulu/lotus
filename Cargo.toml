@@ -5,12 +5,13 @@ authors = ["Jeremy Zheng <jitang.zheng@gmail.com>"]
 description = "A complete open source Office-Automation solution."
 homepage = "https://github.com/saturn-xiv/lotus"
 license = "MIT"
-build = "build.rs"
 
 [profile.release]
 lto = true
 
 [dependencies]
+serde = "1"
+validator = "0.8"
 
 [dependencies.pug]
 path = "../pug"
@@ -18,8 +19,6 @@ path = "../pug"
 default-features = false
 features = ["postgresql", "redis", "rabbitmq", "sodium"]
 
-[build-dependencies]
-askama = "0.7"
 
 # rocket = "0.4.0-rc.1"
 # hyper = "0.11"
