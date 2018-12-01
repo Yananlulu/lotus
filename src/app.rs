@@ -1,6 +1,4 @@
-use std::result::Result as StdResult;
-
-use pug;
+use pug::{self, orm::schema::New as Migration};
 
 use super::{
     env::{self, Config},
@@ -12,15 +10,18 @@ pub struct Server {}
 impl pug::app::Server for Server {
     type Config = Config;
     type Error = Error;
-    fn run(&self, cfg: &Self::Config) -> StdResult<(), Self::Error> {
+    fn launch(&self, cfg: &Self::Config) -> Result<()> {
         pug::rocket::custom(cfg.pug.rocket()?)
             // .mount("/", routes![index])
             .launch();;
         Ok(())
     }
+    fn migrations(&self) -> Vec<Migration> {
+        vec![pug::i18n::locales::migration(), pug::settings::migration()]
+    }
 }
 
-pub fn run() -> Result<()> {
+pub fn launch() -> Result<()> {
     let version = env::version();
     let app = pug::app::App::new(
         env::NAME,
@@ -30,8 +31,5 @@ pub fn run() -> Result<()> {
         Some(env::BANNER),
         Some(env::HOMEPAGE),
     );
-    app.run(
-        &Server {},
-        &vec![pug::i18n::locales::migration(), pug::settings::migration()],
-    )
+    app.launch(&Server {})
 }

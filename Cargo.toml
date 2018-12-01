@@ -17,7 +17,7 @@ validator = "0.8"
 path = "../pug"
 # git = "https://github.com/saturn-xiv/pug.git"
 default-features = false
-features = ["postgresql", "redis", "rabbitmq", "sodium"]
+features = ["postgresql"]
 
 
 # rocket = "0.4.0-rc.1"
