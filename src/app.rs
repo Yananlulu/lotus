@@ -1,4 +1,5 @@
-use pug::{self, orm::schema::New as Migration};
+use pug::orm::schema::New as Migration;
+use rocket;
 
 use super::{
     env::{self, Config},
@@ -11,7 +12,8 @@ impl pug::app::Server for Server {
     type Config = Config;
     type Error = Error;
     fn launch(&self, cfg: &Self::Config) -> Result<()> {
-        pug::rocket::custom(cfg.pug.rocket()?)
+        info!("start background jobs thread");
+        rocket::custom(cfg.pug.rocket()?)
             // .mount("/", routes![index])
             .launch();;
         Ok(())
@@ -30,6 +32,6 @@ pub fn launch() -> Result<()> {
         Some(env::DESCRIPTION),
         Some(env::BANNER),
         Some(env::HOMEPAGE),
-    );
+    )?;
     app.launch(&Server {})
 }
