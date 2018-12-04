@@ -18,6 +18,7 @@ extern crate validator_derive;
 #[macro_use]
 extern crate rocket_contrib;
 
+extern crate chrono;
 extern crate pug;
 extern crate serde_json;
 extern crate validator;
