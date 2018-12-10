@@ -28,6 +28,7 @@ table! {
         id -> Int8,
         form_id -> Int8,
         user_id -> Nullable<Int8>,
+        ip -> Varchar,
         message -> Text,
         created_at -> Timestamp,
         updated_at -> Timestamp,

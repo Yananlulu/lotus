@@ -8,4 +8,4 @@ CREATE TABLE vip_members(
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP NOT NULL
 );
-CREATE UNIQUE INDEX vip_members_nick_name ON vip_members(nick_name);
+CREATE UNIQUE INDEX idx_vip_members_nick_name ON vip_members(nick_name);
