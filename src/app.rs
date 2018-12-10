@@ -4,6 +4,7 @@ use rocket;
 use super::{
     env::{self, Config},
     errors::{Error, Result},
+    plugins,
 };
 
 pub struct Server {}
@@ -28,10 +29,12 @@ impl pug::app::Server for Server {
     }
     fn migrations(&self) -> Vec<Migration> {
         vec![
-            pug::i18n::db::migration(),
-            pug::settings::migration(),
-            pug::nut::auth::migration(),
-            pug::nut::site::migration(),
+            pug::i18n::db::migrations(),
+            pug::settings::migrations(),
+            pug::nut::auth::migrations(),
+            pug::nut::site::migrations(),
+            plugins::vip::dao::migrations(),
+            plugins::survey::dao::migrations(),
         ]
     }
 }
