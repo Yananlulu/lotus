@@ -1,1 +1,2 @@
-DROP TABLE logs;
+DROP TABLE forum_posts;
+DROP TABLE forum_topics;

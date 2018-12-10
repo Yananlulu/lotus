@@ -33,6 +33,7 @@ impl pug::app::Server for Server {
             pug::settings::migrations(),
             pug::nut::auth::migrations(),
             pug::nut::site::migrations(),
+            plugins::forum::dao::migrations(),
             plugins::vip::dao::migrations(),
             plugins::survey::dao::migrations(),
         ]
