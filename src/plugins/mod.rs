@@ -1,3 +1,4 @@
+pub mod cbeta;
 pub mod email;
 pub mod forum;
 pub mod survey;
