@@ -2,6 +2,7 @@
   "name": "lotus",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/my",
   "dependencies": {
     "ant-design-pro": "^2.1.1",
     "antd": "^3.11.6",
@@ -34,10 +35,5 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"]
 }

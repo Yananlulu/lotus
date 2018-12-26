@@ -11,7 +11,7 @@ const Loading = () => <Spin size="large"/>
 
 class Widget extends Component {
   render() {
-    return (<Router>
+    return (<Router basename="/my">
       <div>
         <Switch>
           {
