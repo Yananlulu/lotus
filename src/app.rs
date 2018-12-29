@@ -1,4 +1,6 @@
-use pug::{nut, orm::schema::New as Migration};
+use std::sync::Arc;
+
+use pug::{crypto::sodium::Encryptor as Sodium, jwt::Jwt, nut, orm::schema::New as Migration};
 use rocket;
 
 use super::{
@@ -14,10 +16,15 @@ impl pug::app::Server for Server {
     type Error = Error;
     fn launch(&self, cfg: &Self::Config) -> Result<()> {
         info!("start background jobs thread");
+        let queue = Arc::new(cfg.pug.rabbitmq()?);
+
         let mut routes = Vec::new();
         routes.extend_from_slice(&nut::ROUTES);
 
         let mut app = rocket::custom(cfg.pug.rocket()?)
+            .manage(Arc::new(Jwt::new(cfg.pug.secrets.clone())))
+            .manage(Arc::new(Sodium::new(&cfg.pug.secrets()?)?))
+            .manage(queue.clone())
             .attach(pug::orm::Database::fairing())
             .attach(pug::redis::Redis::fairing());
         for (k, v) in routes {

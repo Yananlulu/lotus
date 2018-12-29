@@ -25,6 +25,6 @@ init:
 	cd third/ueditor && npm install && grunt --encode=utf8 --server=jsp
 
 schema:
-	diesel print-schema -o -- forum_topics forum_posts > src/plugins/forum/dao/schema.rs
+	diesel print-schema -o -- forum_topics forum_posts forum_topics_tags forum_topics_categories > src/plugins/forum/dao/schema.rs
 	diesel print-schema -o -- vip_members > src/plugins/vip/dao/schema.rs
 	diesel print-schema -o -- survey_forms survey_fields survey_responses survey_logs > src/plugins/survey/dao/schema.rs

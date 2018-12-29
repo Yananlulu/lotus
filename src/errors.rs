@@ -13,6 +13,8 @@ error_chain! {
         R2d2(r2d2::Error);
         Validation(validator::ValidationErrors);
         RocketLaunch(rocket::error::LaunchError);
+        Diesel(diesel::result::Error);
+        SerdeJson(serde_json::Error);
     }
 }
 
