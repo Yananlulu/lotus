@@ -18,18 +18,8 @@ table! {
         title -> Varchar,
         body -> Text,
         media_type -> Varchar,
-        created_at -> Timestamp,
-        updated_at -> Timestamp,
-    }
-}
-
-table! {
-    survey_logs (id) {
-        id -> Int8,
-        form_id -> Int8,
-        user_id -> Nullable<Int8>,
-        ip -> Varchar,
-        message -> Text,
+        nbf -> Date,
+        exp -> Date,
         created_at -> Timestamp,
         updated_at -> Timestamp,
     }
@@ -39,7 +29,7 @@ table! {
     survey_responses (id) {
         id -> Int8,
         form_id -> Int8,
-        ip -> Varchar,
+        ip -> Inet,
         body -> Json,
         created_at -> Timestamp,
         updated_at -> Timestamp,
@@ -49,6 +39,5 @@ table! {
 allow_tables_to_appear_in_same_query!(
     survey_fields,
     survey_forms,
-    survey_logs,
     survey_responses,
 );

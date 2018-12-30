@@ -19,6 +19,7 @@ extern crate validator_derive;
 extern crate rocket_contrib;
 
 extern crate chrono;
+extern crate ipnetwork;
 extern crate pug;
 extern crate serde_json;
 extern crate validator;

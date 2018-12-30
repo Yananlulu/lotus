@@ -89,17 +89,6 @@ pub struct Contact {
     pub twitter: Option<String>,
 }
 
-#[derive(Insertable)]
-#[table_name = "vip_members"]
-pub struct New<'a> {
-    pub nick_name: &'a str,
-    pub real_name: &'a str,
-    pub gender: &'a str,
-    pub birthday: &'a NaiveDate,
-    pub contact: &'a Value,
-    pub updated_at: &'a NaiveDateTime,
-}
-
 pub trait Dao {
     fn add(
         &self,
