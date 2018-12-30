@@ -4,8 +4,11 @@ table! {
         form_id -> Int8,
         key -> Varchar,
         title -> Varchar,
+        description -> Nullable<Text>,
         required -> Bool,
-        profile -> Json,
+        #[sql_name = "type"]
+        type_ -> Json,
+        position -> Int2,
         created_at -> Timestamp,
         updated_at -> Timestamp,
     }
@@ -16,8 +19,9 @@ table! {
         id -> Int8,
         user_id -> Int8,
         title -> Varchar,
-        body -> Text,
-        media_type -> Varchar,
+        description -> Text,
+        #[sql_name = "type"]
+        type_ -> Json,
         nbf -> Date,
         exp -> Date,
         created_at -> Timestamp,
@@ -26,18 +30,29 @@ table! {
 }
 
 table! {
+    survey_logs (id) {
+        id -> Int8,
+        form_id -> Int8,
+        user_id -> Nullable<Int8>,
+        ip -> Inet,
+        message -> Varchar,
+        created_at -> Timestamp,
+    }
+}
+
+table! {
     survey_responses (id) {
         id -> Int8,
         form_id -> Int8,
         ip -> Inet,
-        body -> Json,
+        content -> Json,
         created_at -> Timestamp,
-        updated_at -> Timestamp,
     }
 }
 
 allow_tables_to_appear_in_same_query!(
     survey_fields,
     survey_forms,
+    survey_logs,
     survey_responses,
 );

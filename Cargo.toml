@@ -20,7 +20,7 @@ error-chain = "0.12"
 lazy_static = "1.0"
 serde_derive = "1"
 rocket = "0.4"
-ipnetwork = "0.13"
+ipnetwork = "0.12"
 
 [dependencies.pug]
 path = "../pug"
